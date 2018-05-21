@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.CheckInOutTimeArrangeMapper" >
+  <resultMap id="BaseResultMap" type="duanzu.entity.CheckInOutTimeArrange" >
+    <id column="time_id" property="timeId" jdbcType="VARCHAR" />
+    <result column="house_id" property="houseId" jdbcType="VARCHAR" />
+    <result column="preset_start_time" property="presetStartTime" jdbcType="TIMESTAMP" />
+    <result column="preset_end_time" property="presetEndTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    time_id, house_id, preset_start_time, preset_end_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.CheckInOutTimeArrangeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from check_in_out_time_arrange
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from check_in_out_time_arrange
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from check_in_out_time_arrange
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="duanzu.entity.CheckInOutTimeArrangeExample" >
+    delete from check_in_out_time_arrange
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="duanzu.entity.CheckInOutTimeArrange" >
+    insert into check_in_out_time_arrange (time_id, house_id, preset_start_time, 
+      preset_end_time, remark)
+    values (#{timeId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, #{presetStartTime,jdbcType=TIMESTAMP}, 
+      #{presetEndTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="duanzu.entity.CheckInOutTimeArrange" >
+    insert into check_in_out_time_arrange
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="timeId != null" >
+        time_id,
+      </if>
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="presetStartTime != null" >
+        preset_start_time,
+      </if>
+      <if test="presetEndTime != null" >
+        preset_end_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="timeId != null" >
+        #{timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null" >
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="presetStartTime != null" >
+        #{presetStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presetEndTime != null" >
+        #{presetEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="duanzu.entity.CheckInOutTimeArrangeExample" resultType="java.lang.Integer" >
+    select count(*) from check_in_out_time_arrange
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update check_in_out_time_arrange
+    <set >
+      <if test="record.timeId != null" >
+        time_id = #{record.timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseId != null" >
+        house_id = #{record.houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.presetStartTime != null" >
+        preset_start_time = #{record.presetStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.presetEndTime != null" >
+        preset_end_time = #{record.presetEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update check_in_out_time_arrange
+    set time_id = #{record.timeId,jdbcType=VARCHAR},
+      house_id = #{record.houseId,jdbcType=VARCHAR},
+      preset_start_time = #{record.presetStartTime,jdbcType=TIMESTAMP},
+      preset_end_time = #{record.presetEndTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="duanzu.entity.CheckInOutTimeArrange" >
+    update check_in_out_time_arrange
+    <set >
+      <if test="houseId != null" >
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="presetStartTime != null" >
+        preset_start_time = #{presetStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="presetEndTime != null" >
+        preset_end_time = #{presetEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="duanzu.entity.CheckInOutTimeArrange" >
+    update check_in_out_time_arrange
+    set house_id = #{houseId,jdbcType=VARCHAR},
+      preset_start_time = #{presetStartTime,jdbcType=TIMESTAMP},
+      preset_end_time = #{presetEndTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where time_id = #{timeId,jdbcType=VARCHAR}
+  </update>
+</mapper>
