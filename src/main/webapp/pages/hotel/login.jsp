@@ -13,6 +13,8 @@
   		<script type="text/javascript" src="../../lib/layui/layui.js" charset="utf-8"></script>
 		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
 		<script src="../../js/hotel.js/jquery.idcode.js"></script>
+		
+		<script src="../../js/util.js"></script>
 		<script src="../../js/js/login.js"></script>
 		<style>
 			.main{
