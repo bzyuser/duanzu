@@ -30,7 +30,13 @@
 	<!-- 配置SqlSessionFactory -->
 	<bean id="ssf" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dbcp"></property>
-		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
+		<!-- <property name="mapperLocations" value="{classpath:duanzu/dao/*.xml,classpath:duanzu/dao/Custom/*.xml}"> -->
+		<property name="mapperLocations">
+            <list>
+                <value>classpath:duanzu/dao/*.xml</value>
+                <value>classpath:duanzu/dao/Custom/*.xml</value>
+            </list>
+		</property>
 	</bean>
 	<!-- 配置mapper扫描 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

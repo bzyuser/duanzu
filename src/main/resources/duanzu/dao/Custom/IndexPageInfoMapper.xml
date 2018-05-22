@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.IndexPageInfoMapper" >
+	
+	<!-- 查询热门城市信息 -->
+	<select id="findIndexCityInfo" resultType="map">
+		select 
+			c.city_id,
+			c.city_num,
+			c.city_name,
+			c.hot_level,
+			c.feature,
+			cu.city_picture_url_id,
+			cu.picture_name,
+			cu.picture_url,
+			cu.pic_desc
+		from
+			city c
+			join city_picture_url cu
+			on c.city_id = cu.city_id
+			
+	</select>
+	
+	<!-- 查询短租推荐 -->
+	<select id="findIndexDuanzuInfo"  resultType="map">
+	
+	</select>
+</mapper>
