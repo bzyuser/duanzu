@@ -10,39 +10,37 @@ import org.springframework.stereotype.Service;
 import duanzu.dao.UserTableMapper;
 import duanzu.entity.UserTable;
 import duanzu.entity.UserTableExample;
-import duanzu.service.LoginService;
-import duanzu.util.NoteUtil;
+import duanzu.service.RegisterService;
 
 @Service
-public class LoginServiceImpl implements LoginService {
-
+public class RegisterServiceImpl implements RegisterService {
 	@Autowired
 	private UserTableMapper userMapper;
-	
+
 	@Override
-	public Map<String,Object> checkLogin(String name, String password) {
+	public Map<String, Object> register(UserTable userInfo) {
 		Map<String,Object> map = new HashMap<>();
-		//对密码进行加密
-		String md5Password = NoteUtil.md5(password);
 		
+		String userName = userInfo.getUserName();
+		//查询用户名是否存在
 		UserTableExample userEx = new UserTableExample();
 		UserTableExample.Criteria criteria = userEx.createCriteria();
-		criteria.andUserNameEqualTo(name);
+		criteria.andUserNameEqualTo(userName);
 		List<UserTable> lists = userMapper.selectByExample(userEx);
-		if(lists.size()!=0){
-			UserTable user = lists.get(0);
-			String truePassword = user.getPassword();
-			if(truePassword.equals(md5Password)){
+		if(lists.size()==0){
+			//用户名不存在，进行注册
+			int n = userMapper.insertSelective(userInfo);
+			if(n==1){
 				map.put("status", 1);
-				map.put("msg", "密码正确");
+				map.put("msg", "注册成功");
 			} else{
 				map.put("status", 0);
-				map.put("msg", "密码错误");
+				map.put("msg", "注册失败");
 			}
 		}
-		else{
+		else {
 			map.put("status", 2);
-			map.put("msg", "用户名不存在");
+			map.put("msg", "用户名存在");
 		}
 		return map;
 	}
