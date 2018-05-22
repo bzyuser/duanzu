@@ -1,3 +1,10 @@
+$(function(){
+	var name = getAddressParameter("name");
+	if(name!=null){
+		$("#login_name").val(name);
+	}
+})
+
 function login(){
 	var name = $("#login_name").val();
 	var password = $("#login_password").val();
