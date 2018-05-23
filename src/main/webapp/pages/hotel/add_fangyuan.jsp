@@ -19,7 +19,6 @@
 
 <script type="text/javascript"
 	src="${baseurl}/lib/bootstrapFileinput/jquery1.11.o.min.js"></script>
-
 <script type="text/javascript" src="../../lib/layui/layui.js"
 	charset="utf-8"></script>
 <script type="text/javascript" src="../../js/xadmin.js"></script>
@@ -171,14 +170,14 @@ a:hover {
 
 .main {
 	width: 1366px;
-	height: 4180px;
+	
 	background: lightgoldenrodyellow;
 	margin-top: 5px;
 }
 
 .fangyuanInfo {
 	width: 1250px;
-	height: 4150px;
+	
 	background: white;
 	float: left;
 	margin-left: 50px;
@@ -239,7 +238,7 @@ a:hover {
 
 .fangjianInfo {
 	width: 1250px;
-	height: 660px;
+	height: 700px;
 	background: white;
 	float: left;
 	margin-top: 5px;
@@ -249,7 +248,7 @@ a:hover {
 	float: left;
 	margin-left: 50px;
 	width: 1100px;
-	height: 560px;
+	height: 610px;
 	border: 2px solid lightgoldenrodyellow;
 	margin-top: 20px;
 	margin-left: 80px;
@@ -342,7 +341,7 @@ a:hover {
 
 .upload {
 	width: 1250px;
-	height: 630px;
+	
 	background: white;
 	float: left;
 	margin-top: 5px;
@@ -352,7 +351,7 @@ a:hover {
 	float: left;
 	margin-left: 50px;
 	width: 1100px;
-	height: 520px;
+	
 	border: 2px solid lightgoldenrodyellow;
 	margin-top: 20px;
 	margin-left: 80px;
@@ -482,8 +481,11 @@ a:hover {
 		</div>
 	</div>
 	<div class="main">
-		<form action="" method="post" id="form1">
-			<div class="fangyuanInfo">
+		
+		<div class="fangyuanInfo">
+			<form action="" method="post" id="form1">
+			<input type="text" style="display:none" name="userId" id="userId"/>
+			<input type="text" style="display:none" id="houseId"/>
 				<div class="weizhiInfo">
 					<div class="kuai"></div>
 					<div class="text1" style="font-size: 25px;">位置信息</div>
@@ -609,6 +611,20 @@ a:hover {
 								<p style="font-size: 18px;">卧室数量：</p>
 							</div>
 							<div class="houseType">
+								<select class="type00" id="hometype" name="homeType">
+									<option value="一居">一居</option>
+									<option value="二居">二居</option>
+									<option value="三居">三居</option>
+									<option value="四居">四居</option>
+									<option value="四居以上">四居以上</option>					
+								</select>
+							</div>
+						</div>
+						<div class="box1">
+							<div class="text2">
+								<p style="font-size: 18px;">卧室数量：</p>
+							</div>
+							<div class="houseType">
 								<select class="type00" id="homenum" name="homeNum">
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -658,7 +674,7 @@ a:hover {
 								<p style="font-size: 18px;">床型：</p>
 							</div>
 							<div class="houseType">
-								<select class="type00" id="bedtype" name="bdeType">
+								<select class="type00" id="bedtype" name="bedType">
 									<option value="双人床">双人床</option>
 									<option value="单人床">单人床</option>
 									<option value="沙发">沙发床</option>
@@ -702,7 +718,7 @@ a:hover {
 								<table class="choosetoilet">
 									<tr>
 										<td style="width: 150px;"><input type="radio"
-											name="toiletType" id="toilettype1" value="公共卫生间"/><label for="toilettype1"
+											name="toiletType" id="toilettype1" value="公共卫生间" checked/><label for="toilettype1"
 											style="font-size: 20px;">公共卫生间</label></td>
 										<td style="width: 150px;"><input type="radio"
 											name="toiletType" id="toilettype2" value="独立卫生间"/><label for="toilettype2"
@@ -718,7 +734,7 @@ a:hover {
 							<div class="houseType">
 								<input type="text" style="height: 25px; width: 50px;" id="towerlevel" name="towerLevel"/>
 								&nbsp;&nbsp;层/共&nbsp;&nbsp;
-								<input type="text" style="height: 25px; width: 50px;" id="towerlevel" name="towerLevel">
+								<input type="text" style="height: 25px; width: 50px;" id="totallevel" name="totalLevel">
 							</div>
 						</div>
 						<div class="box1">
@@ -795,19 +811,19 @@ a:hover {
 							<table>
 								<label style="font-size: 20px; font-weight: bolder;">卫浴设施</label>
 								<tr id="chooseweiyu" class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="洗浴用品"
 										 /><label for="weiyu1" style="font-size: 18px;">&nbsp;&nbsp;洗浴用品</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="拖鞋"
 										 /><label for="weiyu2" style="font-size: 18px;">&nbsp;&nbsp;拖鞋</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="24h热水"
 										 /><label for="weiyu3" style="font-size: 18px;">&nbsp;&nbsp;24h热水</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="热水浴缸"
 										 /><label for="weiyu4" style="font-size: 18px;">&nbsp;&nbsp;热水浴缸</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="淋浴"
 										 /><label for="weiyu5" style="font-size: 20px;">&nbsp;&nbsp;淋浴</label>
 									</td>
 								</tr>
@@ -817,33 +833,33 @@ a:hover {
 							<table class="table1" style="table-layout: fixed; width: 1000px;">
 								<label style="font-size: 20px; font-weight: bolder;">家庭及网络</label>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="电视"
 										 /><label for="jiating1"
 										style="font-size: 18px;">&nbsp;&nbsp;电视</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="电冰箱"
 										 /><label for="jiating2"
 										style="font-size: 18px;">&nbsp;&nbsp;电冰箱</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="电脑"
 										 /><label for="jiating3"
 										style="font-size: 18px;">&nbsp;&nbsp;电脑</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="洗衣"
 										 /><label for="jiating4"
 										style="font-size: 18px;">&nbsp;&nbsp;洗衣机</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="空调"
 										 /><label for="jiating5"
 										style="font-size: 18px;">&nbsp;&nbsp;空调</label></td>
 								</tr>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="暖气"
 										 /><label for="jiating6"
 										style="font-size: 18px;">&nbsp;&nbsp;暖气</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="有线网络"
 										 /><label for="jiating7"
 										style="font-size: 18px;">&nbsp;&nbsp;有线网络</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="无线网络"
 										 /><label for="jiating8"
 										style="font-size: 18px;">&nbsp;&nbsp;无线网络</label></td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="饮水机"
 										 /><label for="jiating9"
 										style="font-size: 18px;">&nbsp;&nbsp;饮水机</label></td>
 								</tr>
@@ -853,29 +869,30 @@ a:hover {
 							<table class="table1" style="table-layout: fixed; width: 1000px;">
 								<label style="font-size: 20px; font-weight: bolder;">物业及房源其他设施</label>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="电梯"
 										 /><label for="wuye1" style="font-size: 18px;">&nbsp;&nbsp;电梯</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="无障碍设施"
 										 /><label for="wuye2" style="font-size: 18px;">&nbsp;&nbsp;无障碍设施</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="保安"
 										 /><label for="wuye3" style="font-size: 18px;">&nbsp;&nbsp;保安</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="自动麻将桌"
 										 /><label for="wuye4" style="font-size: 18px;">&nbsp;&nbsp;自动麻将桌</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="停车位"
 										 /><label for="wuye5" style="font-size: 18px;">&nbsp;&nbsp;停车位</label>
 									</td>
 								</tr>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="对讲门禁系统"
 										 /><label for="wuye6" style="font-size: 18px;">&nbsp;&nbsp;对讲门禁系统</label>
 									</td>
-									<td/><label for="wuye7" style="font-size: 18px;">&nbsp;&nbsp;免费健身房</label>
+									<td class="td"><input type="checkbox" name="weiyu" value="免费健身房"
+										 /><label for="wuye6" style="font-size: 18px;">&nbsp;&nbsp;免费健身房</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="免费游泳池"
 										 /><label for="wuye8" style="font-size: 18px;">&nbsp;&nbsp;免费游泳池</label>
 									</td>
 								</tr>
@@ -885,36 +902,36 @@ a:hover {
 							<table class="table1" style="table-layout: fixed; width: 1000px;">
 								<label style="font-size: 20px; font-weight: bolder;">物业及房源其他设施</label>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="可以接送"
 										 /><label for="fuwu1" style="font-size: 18px;">&nbsp;&nbsp;可以接送</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="免费早餐"
 										 /><label for="fuwu2" style="font-size: 18px;">&nbsp;&nbsp;免费早餐</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="可接待家庭/孩子"
 										 /><label for="fuwu3" style="font-size: 18px;">&nbsp;&nbsp;可接待家庭/孩子</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="适合举办活动"
 										 /><label for="fuwu4" style="font-size: 18px;">&nbsp;&nbsp;适合举办活动</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="可用厨房"
 										 /><label for="fuwu5" style="font-size: 18px;">&nbsp;&nbsp;可用厨房</label>
 									</td>
 								</tr>
 								<tr class="tr">
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="可以携带宠物"
 										 /><label for="fuwu6" style="font-size: 18px;">&nbsp;&nbsp;可以携带宠物</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="行李寄存"
 										 /><label for="fuwu7" style="font-size: 18px;">&nbsp;&nbsp;行李寄存</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="加床服务"
 										 /><label for="fuwu8" style="font-size: 18px;">&nbsp;&nbsp;加床服务</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="票务代理"
 										 /><label for="fuwu9" style="font-size: 18px;">&nbsp;&nbsp;票务代理</label>
 									</td>
-									<td class="td"><input type="checkbox" name="weiyu"
+									<td class="td"><input type="checkbox" name="weiyu" value="可以吸烟"
 										/><label for="fuwu10" style="font-size: 18px;">&nbsp;&nbsp;可以吸烟</label>
 									</td>
 								</tr>
@@ -978,7 +995,7 @@ a:hover {
 								<p style="font-size: 20px;">房屋使用规则：</p>
 							</div>
 							<div class="beizhu">
-								<textarea class="layui-textarea" name="desc">* 请带好您的有效身份证件办理入住。
+								<textarea class="layui-textarea">* 请带好您的有效身份证件办理入住。
 									* 请爱护房间内设施和物品。
 									* 请勿将房间用于违法活动。
 					      		</textarea>
@@ -1136,25 +1153,31 @@ a:hover {
 					<button type="button" onclick="submit1()"
 						style="font-size: 22px; height: 35px; width: 295px; background: lightgreen;">确认发布</button>
 				</div>
-				
-				<div class="upload">
+			</form>
+				<div class="upload" style="display:none" id="upload">
 					<div class="kuai"></div>
 					<div class="text1" style="font-size: 25px;">上传图片</div>
 					<div class="line"></div>
 					<div class="shangchuan">
+					<div class="houseType">
+								<select class="type00" id="pictype" name="picType">
+									<option value="首页">首页</option>
+									<option value="普通">普通</option>
+		
+								</select>
+							</div>
 						<form enctype="multipart/form-data">
 							<hr>
 							<div id="input_div">
-								<!-- <div id="input_div" style="display: none"> -->
-								<input id="bootUpMultiple" class="files" multiple type="file"
+								<input id="bootUpMultiple" multiple class="file" type="file"
 									name="file">
 							</div>
-							<hr>
+						<hr>
 						</form>
 					</div>
 				</div>
-			</div>
-		</form>
+		</div>
+		
 	</div>
 	<div class="footer">
 		<p style="text-align: center;">许可证号：晋ICP证180509号 安全联盟 太原科大信息科技有限公司</p>
@@ -1163,10 +1186,9 @@ a:hover {
 	<script>
 		//利用插件异步上传多文件
 		$("#bootUpMultiple")
-				.fileinput(
-						{
+				.fileinput({
 							language : 'zh',//中文
-							uploadUrl : contextPath + "/oGDAttachment/uploadFile.do",//上传的地址，加上这个才会出现删除按钮
+							uploadUrl : contextPath + "/pages/hotel/addfangyuan/uploadFile.do",//上传的地址，加上这个才会出现删除按钮
 							dropZoneEnabled : false,//是否显示拖拽区域
 							showUpload : true, //是否显示上传按钮,跟随文本框的那个
 							showRemove : true, //显示移除按钮,跟随文本框的那个
@@ -1176,9 +1198,11 @@ a:hover {
 
 							previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
 							uploadExtraData : function(previewId, index) { //携带其他一些数据的格式
-								var id = getAddressParameter("id");
+								var houseId = $("#houseId").val();
+								var picType = $("#pictype").val();
 								var data = {
-									attachmentID : id,
+									houseId : houseId,
+									picType : picType,
 									index : previewId,
 								};
 								return data;
@@ -1194,7 +1218,12 @@ a:hover {
 							extra = data.extra, 
 							response = data.response, 
 							reader = data.reader;
-						}).on("fileuploaded", function(event, data) {//上传成功之后的一些处理
+							var houseId = $("#houseId").val();
+							if(houseId==null||houseId==""){
+								//取消文件上传
+							}
+						})
+				.on("fileuploaded", function(event, data) {//上传成功之后的一些处理
 
 				});
 	</script>
