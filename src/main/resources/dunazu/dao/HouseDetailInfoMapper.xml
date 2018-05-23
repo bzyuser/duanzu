@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.HouseDetailInfoMapper" >
+  <resultMap id="BaseResultMap" type="duanzu.entity.HouseDetailInfo" >
+    <id column="detail_id" property="detailId" jdbcType="VARCHAR" />
+    <result column="hou_house_id" property="houHouseId" jdbcType="VARCHAR" />
+    <result column="house_id" property="houseId" jdbcType="VARCHAR" />
+    <result column="home_num" property="homeNum" jdbcType="VARCHAR" />
+    <result column="bed_num" property="bedNum" jdbcType="VARCHAR" />
+    <result column="available_people_num" property="availablePeopleNum" jdbcType="VARCHAR" />
+    <result column="bed_type" property="bedType" jdbcType="VARCHAR" />
+    <result column="extra_add_people_num" property="extraAddPeopleNum" jdbcType="VARCHAR" />
+    <result column="toilet_num" property="toiletNum" jdbcType="VARCHAR" />
+    <result column="toilet_type" property="toiletType" jdbcType="VARCHAR" />
+    <result column="tower_level" property="towerLevel" jdbcType="VARCHAR" />
+    <result column="total_level" property="totalLevel" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    detail_id, hou_house_id, house_id, home_num, bed_num, available_people_num, bed_type, 
+    extra_add_people_num, toilet_num, toilet_type, tower_level, total_level, area, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.HouseDetailInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from house_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from house_detail_info
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from house_detail_info
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="duanzu.entity.HouseDetailInfoExample" >
+    delete from house_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="duanzu.entity.HouseDetailInfo" >
+    insert into house_detail_info (detail_id, hou_house_id, house_id, 
+      home_num, bed_num, available_people_num, 
+      bed_type, extra_add_people_num, toilet_num, 
+      toilet_type, tower_level, total_level, 
+      area, remark)
+    values (#{detailId,jdbcType=VARCHAR}, #{houHouseId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
+      #{homeNum,jdbcType=VARCHAR}, #{bedNum,jdbcType=VARCHAR}, #{availablePeopleNum,jdbcType=VARCHAR}, 
+      #{bedType,jdbcType=VARCHAR}, #{extraAddPeopleNum,jdbcType=VARCHAR}, #{toiletNum,jdbcType=VARCHAR}, 
+      #{toiletType,jdbcType=VARCHAR}, #{towerLevel,jdbcType=VARCHAR}, #{totalLevel,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="duanzu.entity.HouseDetailInfo" >
+    insert into house_detail_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="houHouseId != null" >
+        hou_house_id,
+      </if>
+      <if test="houseId != null" >
+        house_id,
+      </if>
+      <if test="homeNum != null" >
+        home_num,
+      </if>
+      <if test="bedNum != null" >
+        bed_num,
+      </if>
+      <if test="availablePeopleNum != null" >
+        available_people_num,
+      </if>
+      <if test="bedType != null" >
+        bed_type,
+      </if>
+      <if test="extraAddPeopleNum != null" >
+        extra_add_people_num,
+      </if>
+      <if test="toiletNum != null" >
+        toilet_num,
+      </if>
+      <if test="toiletType != null" >
+        toilet_type,
+      </if>
+      <if test="towerLevel != null" >
+        tower_level,
+      </if>
+      <if test="totalLevel != null" >
+        total_level,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailId != null" >
+        #{detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="houHouseId != null" >
+        #{houHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null" >
+        #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeNum != null" >
+        #{homeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bedNum != null" >
+        #{bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="availablePeopleNum != null" >
+        #{availablePeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bedType != null" >
+        #{bedType,jdbcType=VARCHAR},
+      </if>
+      <if test="extraAddPeopleNum != null" >
+        #{extraAddPeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="toiletNum != null" >
+        #{toiletNum,jdbcType=VARCHAR},
+      </if>
+      <if test="toiletType != null" >
+        #{toiletType,jdbcType=VARCHAR},
+      </if>
+      <if test="towerLevel != null" >
+        #{towerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLevel != null" >
+        #{totalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="duanzu.entity.HouseDetailInfoExample" resultType="java.lang.Integer" >
+    select count(*) from house_detail_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update house_detail_info
+    <set >
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houHouseId != null" >
+        hou_house_id = #{record.houHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseId != null" >
+        house_id = #{record.houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.homeNum != null" >
+        home_num = #{record.homeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedNum != null" >
+        bed_num = #{record.bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.availablePeopleNum != null" >
+        available_people_num = #{record.availablePeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bedType != null" >
+        bed_type = #{record.bedType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.extraAddPeopleNum != null" >
+        extra_add_people_num = #{record.extraAddPeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toiletNum != null" >
+        toilet_num = #{record.toiletNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toiletType != null" >
+        toilet_type = #{record.toiletType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.towerLevel != null" >
+        tower_level = #{record.towerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalLevel != null" >
+        total_level = #{record.totalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update house_detail_info
+    set detail_id = #{record.detailId,jdbcType=VARCHAR},
+      hou_house_id = #{record.houHouseId,jdbcType=VARCHAR},
+      house_id = #{record.houseId,jdbcType=VARCHAR},
+      home_num = #{record.homeNum,jdbcType=VARCHAR},
+      bed_num = #{record.bedNum,jdbcType=VARCHAR},
+      available_people_num = #{record.availablePeopleNum,jdbcType=VARCHAR},
+      bed_type = #{record.bedType,jdbcType=VARCHAR},
+      extra_add_people_num = #{record.extraAddPeopleNum,jdbcType=VARCHAR},
+      toilet_num = #{record.toiletNum,jdbcType=VARCHAR},
+      toilet_type = #{record.toiletType,jdbcType=VARCHAR},
+      tower_level = #{record.towerLevel,jdbcType=VARCHAR},
+      total_level = #{record.totalLevel,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="duanzu.entity.HouseDetailInfo" >
+    update house_detail_info
+    <set >
+      <if test="houHouseId != null" >
+        hou_house_id = #{houHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="houseId != null" >
+        house_id = #{houseId,jdbcType=VARCHAR},
+      </if>
+      <if test="homeNum != null" >
+        home_num = #{homeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bedNum != null" >
+        bed_num = #{bedNum,jdbcType=VARCHAR},
+      </if>
+      <if test="availablePeopleNum != null" >
+        available_people_num = #{availablePeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bedType != null" >
+        bed_type = #{bedType,jdbcType=VARCHAR},
+      </if>
+      <if test="extraAddPeopleNum != null" >
+        extra_add_people_num = #{extraAddPeopleNum,jdbcType=VARCHAR},
+      </if>
+      <if test="toiletNum != null" >
+        toilet_num = #{toiletNum,jdbcType=VARCHAR},
+      </if>
+      <if test="toiletType != null" >
+        toilet_type = #{toiletType,jdbcType=VARCHAR},
+      </if>
+      <if test="towerLevel != null" >
+        tower_level = #{towerLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="totalLevel != null" >
+        total_level = #{totalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="duanzu.entity.HouseDetailInfo" >
+    update house_detail_info
+    set hou_house_id = #{houHouseId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
+      home_num = #{homeNum,jdbcType=VARCHAR},
+      bed_num = #{bedNum,jdbcType=VARCHAR},
+      available_people_num = #{availablePeopleNum,jdbcType=VARCHAR},
+      bed_type = #{bedType,jdbcType=VARCHAR},
+      extra_add_people_num = #{extraAddPeopleNum,jdbcType=VARCHAR},
+      toilet_num = #{toiletNum,jdbcType=VARCHAR},
+      toilet_type = #{toiletType,jdbcType=VARCHAR},
+      tower_level = #{towerLevel,jdbcType=VARCHAR},
+      total_level = #{totalLevel,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where detail_id = #{detailId,jdbcType=VARCHAR}
+  </update>
+</mapper>
