@@ -2,8 +2,28 @@ var userId = 1;
 //页面加载执行查询房东基本信息
 $(function(){
 	loadhostinfo(userId);
+	loadhosthouseinfo(userId)
 });
-
+//加载改房东的房源信息
+function loadhosthouseinfo(id){
+	//向基本信息中隐藏用户id
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
+	$.ajax({
+		url:contextPath+"/pages/hotel/fangdongManager/loadhosthouseinfo.do",
+		type:"post",
+		data:{"userId":id},
+		dataType:"json",
+		success:function(result){
+			
+		},
+		error:function(){
+			layer.msg("加载房东房源出错");
+		}
+	})
+}
 //加载房东信息
 function loadhostinfo(id){
 	//向基本信息中隐藏用户id
