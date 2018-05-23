@@ -29,6 +29,7 @@
 	    <script src="../../js/hotel.js/bootstrap.min.js"></script>
 	    
 	    <script src="../../js/js/index_login_register.js"></script>
+	    <script type="text/javascript" src="../../js/js/index.js"></script>
 	  
 		
 		<script type="text/javascript">
@@ -356,7 +357,7 @@
 			<div class="part2">
 				<div class="search_rent">
 					<div class="search_city">
-						<span style="font-size: 16px;"></span><input type="text" class="search" placeholder="目的地、城市" style="height: 18px;">
+						<span style="font-size: 16px;"></span><input type="text" id="cityName" class="search" placeholder="目的地、城市" style="height: 18px;">
 						<script>
 							$('.search').kuCity();
 						</script>
@@ -404,7 +405,7 @@
 					</div>
 					
 					<div class="searchbutton">
-						<button class="layui-btn layui-btn-warm" style="width: 120px;height: 34px;">搜索</button>
+						<button type="button" onclick="search();" class="layui-btn layui-btn-warm" style="width: 120px;height: 34px;">搜索</button>
 					</div>
 				</div>
 			</div>
@@ -446,11 +447,11 @@
 				<div class="city_pic">
 					<div class="city_box">
 						<div class="city_box1">
-							<a href="北京的链接"><img src="../../images/hotel/beijing.png" width="780" height="280" alt="北京"/></a>
+							<a href="北京的链接"><img id="bjImg" src="" width="780" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">北京</span>
-	                            	<span class="city_text_describe"><br>京戏胡同豆汁酸</span>
+	                            	<span class="city_pic1_text" id="bj"></span><br>
+	                            	<span class="city_text_describe" id="bjdesc"></span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -459,8 +460,8 @@
 							<a href="成都的链接"><img src="../../images/hotel/chengdu.png" width="380" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 		                        <div class="city_pic_text">
-		                            <span class="city_pic1_text">成都</span>
-		                            <span class="city_text_describe"><br>宽窄巷子慢生活</span>
+		                            <span class="city_pic1_text">成都</span><br>
+		                            <span class="city_text_describe">宽窄巷子慢生活</span>
 		                        </div>
 		                    </div>
 	                    </div>
@@ -468,8 +469,8 @@
 							<a href="大连的链接"><img src="../../images/hotel/dalian.png" width="380" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">大连</span>
-	                            	<span class="city_text_describe"><br>酣梦兴游老虎滩</span>
+	                            	<span class="city_pic1_text">大连</span><br>
+	                            	<span class="city_text_describe">酣梦兴游老虎滩</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -477,8 +478,8 @@
 							<a href="北戴河的链接"><img src="../../images/hotel/beidaihe.png" width="780" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">北戴河</span>
-	                            	<span class="city_text_describe"><br>新石器时代的繁衍</span>
+	                            	<span class="city_pic1_text">北戴河</span><br>
+	                            	<span class="city_text_describe">新石器时代的繁衍</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -486,8 +487,8 @@
 							<a href="青岛的链接"><img src="../../images/hotel/qingdaozhanqiao.png" width="380" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">青岛</span>
-	                            	<span class="city_text_describe"><br>啤酒城享别样生活</span>
+	                            	<span class="city_pic1_text">青岛</span><br>
+	                            	<span class="city_text_describe">啤酒城享别样生活</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -495,8 +496,8 @@
 							<a href="杭州的链接"><img src="../../images/hotel/hangzhou.png" width="380" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">杭州</span>
-	                            	<span class="city_text_describe"><br>断桥边的千年之恋</span>
+	                            	<span class="city_pic1_text">杭州</span><br>
+	                            	<span class="city_text_describe">断桥边的千年之恋</span>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -504,8 +505,8 @@
 							<a href="上海的链接"><img src="../../images/hotel/shanghai.png" width="380" height="280" alt="北京"/></a>
 							<div class="city_textbox">
 	                            <div class="city_pic_text">
-	                            	<span class="city_pic1_text">上海</span>
-	                            	<span class="city_text_describe"><br>吴语 弄堂 城隍庙</span>
+	                            	<span class="city_pic1_text">上海</span><br>
+	                            	<span class="city_text_describe">吴语 弄堂 城隍庙</span>
 	                            </div>
 	                        </div>
 	                    </div>
