@@ -18,6 +18,7 @@
     <result column="other" property="other" jdbcType="VARCHAR" />
     <result column="hot_level" property="hotLevel" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -81,7 +82,7 @@
   <sql id="Base_Column_List" >
     house_id, city_id, host_family_id, house_name, rent_out_type, house_type, home_type, 
     price, address, facility, house_desc, traffic, rim_desc, other, hot_level, status, 
-    remark
+    time, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.HouseBaseInfoExample" >
     select
@@ -119,13 +120,15 @@
       home_type, price, address, 
       facility, house_desc, traffic, 
       rim_desc, other, hot_level, 
-      status, remark)
+      status, time, remark
+      )
     values (#{houseId,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, #{hostFamilyId,jdbcType=VARCHAR}, 
       #{houseName,jdbcType=VARCHAR}, #{rentOutType,jdbcType=VARCHAR}, #{houseType,jdbcType=VARCHAR}, 
       #{homeType,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{facility,jdbcType=VARCHAR}, #{houseDesc,jdbcType=VARCHAR}, #{traffic,jdbcType=VARCHAR}, 
       #{rimDesc,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{hotLevel,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="duanzu.entity.HouseBaseInfo" >
     insert into house_base_info
@@ -177,6 +180,9 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="time != null" >
+        time,
       </if>
       <if test="remark != null" >
         remark,
@@ -230,6 +236,9 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -293,6 +302,9 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=VARCHAR},
       </if>
+      <if test="record.time != null" >
+        time = #{record.time,jdbcType=VARCHAR},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -319,6 +331,7 @@
       other = #{record.other,jdbcType=VARCHAR},
       hot_level = #{record.hotLevel,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=VARCHAR},
+      time = #{record.time,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -372,6 +385,9 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -395,6 +411,7 @@
       other = #{other,jdbcType=VARCHAR},
       hot_level = #{hotLevel,jdbcType=VARCHAR},
       status = #{status,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where house_id = #{houseId,jdbcType=VARCHAR}
   </update>

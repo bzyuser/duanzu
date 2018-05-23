@@ -20,6 +20,14 @@ public class FangDongManagerController {
 	@Autowired
 	private HostFamilyInfoService hostService;
 	
+	//上传房源
+	@RequestMapping("/loadhosthouseinfo.do")
+	@ResponseBody
+	public Map<String,Object> loadhosthouseinfo(String userId){
+		Map<String,Object> map = new HashMap<>();
+        return map;
+	}
+	
 	//根据用户id查询该用户绑定的房东详细信息
 	@RequestMapping("/loadhostinfo.do")
 	@ResponseBody
