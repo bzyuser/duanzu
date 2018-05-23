@@ -2,6 +2,41 @@ var userId = 1;
 $(function(){
 	loadhostinfo();
 })
+//添加房源
+function submit1(){
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
+	//layer.msg("fang");
+	//隐藏用户id
+	$("#userId").val(userId);
+	$.ajax({
+		url:contextPath+"/pages/hotel/addfangyuan/commit.do",
+		type:"post",
+		data:$("#form1").serialize(),
+		dataType:"json",
+		success:function(result){
+			var status = result.status;
+			if(status==1){
+				//获取房屋id隐藏房屋id
+				$("#houseId").val(result.houseId);
+				$("#upload").css("display","");
+				layer.msg(result.msg);
+				
+			}else if(status==2){
+				layer.msg(result.msg);
+			}else if(status==0){
+				
+			}
+		},
+		error:function(){
+			
+		}
+	})
+	
+}
+
 //加载房东基本信息
 function loadhostinfo(){
 	var layer;
@@ -30,21 +65,4 @@ function loadhostinfo(){
 			layer.msg("加载信息出错");
 		}
 	})
-}
-
-function submit1(){
-	//alert("123");
-	$.ajax({
-		url:contextPath+"/pages/hotel/addfangyuan/commit.do",
-		type:"post",
-		data:$("#form1").serialize(),
-		dataType:"json",
-		success:function(){
-			
-		},
-		error:function(){
-			
-		}
-	})
-	
 }
