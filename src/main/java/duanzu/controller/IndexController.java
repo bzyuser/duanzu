@@ -19,6 +19,10 @@ public class IndexController {
 	@Autowired
 	private IndexService indexService;
 	
+	/**
+	 * 查询热门城市信息与短租推荐信息
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/findIndexPageInfo.do")
 	public Map<String,Object> findIndexPageInfo(){
@@ -28,12 +32,18 @@ public class IndexController {
 	}
 	
 	
-	
+	/**
+	 * 增加房屋热度等级
+	 * @param house_id
+	 * @return
+	 */
 	@ResponseBody
-	@RequestMapping("/findCityInfo.do")
-	public List<Map<String,Object>> findCityInfo(@RequestParam Map<String,Object> condition){
-		
-		return null;	
+	@RequestMapping("/updateHouseHotLevel.do")
+	public boolean updateHouseHotLevel(String house_id){
+		boolean result = false;
+		result = indexService.updateHouseHotLevel(house_id);
+		return result;
 	}
-
+	
+	
 }

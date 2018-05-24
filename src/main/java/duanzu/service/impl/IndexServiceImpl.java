@@ -16,6 +16,9 @@ public class IndexServiceImpl implements IndexService {
 	@Autowired
 	private IndexPageInfoMapper indexMapper;
 	
+	/**
+	 * 查询热门城市与短租推荐信息
+	 */
 	@Override
 	public Map<String, Object> findIndexPageInfo() {
 		// 用于封装返回数据
@@ -25,18 +28,23 @@ public class IndexServiceImpl implements IndexService {
 			//添加到map
 			map.put("cityList", cityList);
 		// 查询推荐短租信息
-		List<Map<String,Object>> duanzuList = indexMapper.findIndexCityInfo();
+		String picture_type = "封面";
+		List<Map<String,Object>> duanzuList = indexMapper.findIndexDuanzuInfo(picture_type);
 			//添加到map
 			map.put("duanzuList", duanzuList);
 			
 		return map;
 	}
 
-	
+
+	/**
+	 * 增加房屋热度等级
+	 */
 	@Override
-	public List<Map<String, Object>> findCityInfo(Map<String, Object> condition) {
-		
-		return null;
+	public boolean updateHouseHotLevel(String house_id) {
+		boolean result = false;
+		result = indexMapper.updateHuseHotLevel(house_id);
+		return result;
 	}
 
 
