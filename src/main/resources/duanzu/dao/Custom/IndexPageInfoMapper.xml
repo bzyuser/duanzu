@@ -22,7 +22,31 @@
 	</select>
 	
 	<!-- 查询短租推荐 -->
-	<select id="findIndexDuanzuInfo"  resultType="map">
-	
+	<select id="findIndexDuanzuInfo" parameterType="String"  resultType="map">
+		select
+			hu.house_id,
+			hu.picture_url,
+			hi.house_name,
+			hi.house_desc
+		from 
+			house_base_info hi
+			join house_picture_url hu
+			on hi.house_id = hu.house_id
+		 where 
+		 	hu.picture_type = #{picture_type}
+		 ORDER BY
+		 	 hi.hot_level DESC
 	</select>
+	
+	<!-- 修改房屋热度等级 -->
+	<update id="updateHuseHotLevel" parameterType="String">
+		update
+			house_base_info
+		  set
+		  	hot_level = hot_level+1
+		  where
+		  	house_id = #{house_id}
+	</update>
+	
+	
 </mapper>
