@@ -1,4 +1,8 @@
 
+// 定义变量，用于传参
+var preset_start_time = "";
+var preset_end_time = "";
+var city_name = "";
 // 页面启动时加载
 $(function(){
 	$.ajax({
@@ -54,7 +58,7 @@ $(function(){
 							"<span class='sIntro'>"+
 								"<a style='display:none;'>"+duanzuList[i].house_id+"</a>"+
 								"<h2>"+duanzuList[i].house_name+"</h2>"+
-								"<p>"+duanzuList[i].house_desc+"</p>"+
+								"<p style='hegith:5px;'>"+duanzuList[i].address+"</p>"+
 								"<button type='button' onclick='learnMoreClick(this);'>learn more...</button>"+
 							"</span>"+
 						"</div>"
@@ -85,10 +89,10 @@ $(function(){
 // 城市图片的点击事件以及传参
 function cityImgClick(obj){
 	// 获取参数（城市名称）
-	var cityName = $(obj).parent("div").find("div").find("div").find("span").eq(0).text();
+	cityName = $(obj).parent("div").find("div").find("div").find("span").eq(0).text();
 	// 设置页面跳转并传参
-	var city_name=encodeURI(encodeURI(cityName));
-	$(".cityUrl").attr("href","/duanzu/pages/hotel/hotelindex.jsp?city_name="+city_name);
+	city_name=encodeURI(encodeURI(cityName));
+	$(".cityUrl").attr("href","/duanzu/pages/hotel/hotelindex.jsp?city_name="+city_name+"&preset_start_time="+preset_start_time+"&preset_end_time="+preset_end_time);
 	
 }
 
@@ -117,12 +121,12 @@ function learnMoreClick(obj){
 // 查询符合条件的房源
 function search(){
 	// 获取查询条件
-	var cityname = $("#cityName").val();
-	var preset_start_time = $("#dpd1").val();
-	var preset_end_time = $("#dpd2").val();
+	cityname = $("#cityName").val();
+	preset_start_time = $("#dpd1").val();
+	preset_end_time = $("#dpd2").val();
 	// alert(cityname+","+preset_start_time+","+preset_end_time);
-	var city_name=encodeURI(encodeURI(cityname));
+	city_name=encodeURI(encodeURI(cityname));
 	// 页面跳转并传参（查询条件）
-	window.location.href="/duanzu/pages/hotel/hotelindex.jsp?city_name="+city_name+"&preset_start_time="+preset_start_time+"&preset_end_time="+preset_end_time
+	window.location.href="/duanzu/pages/hotel/hotelindex.jsp?city_name="+city_name+"&preset_start_time="+preset_start_time+"&preset_end_time="+preset_end_time;
 
 }

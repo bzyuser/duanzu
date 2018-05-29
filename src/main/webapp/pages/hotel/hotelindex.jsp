@@ -273,14 +273,16 @@
 	  		$(function(){
 	  			<%
 	  				String city_name = request.getParameter("city_name");
-	  					city_name = URLDecoder.decode(city_name, "utf-8");
+	  					if(city_name!=null){
+	  						city_name = URLDecoder.decode(city_name, "utf-8");
+	  					}
 	  				String preset_start_time = request.getParameter("preset_start_time");
 	  				String preset_end_time = request.getParameter("preset_end_time");
 	  			%>
 	  			city_name = "<%=city_name%>";
 	  			preset_start_time = "<%=preset_start_time%>";
 	  			preset_end_time = "<%=preset_end_time%>";		
-	  			//alert(city_name+","+preset_start_time+","+preset_end_time);
+	  			
 	  			// 非空则赋值
 	  			if(city_name!=null && city_name!=""){
 	  				$("#cityGoal").val(city_name);
@@ -290,7 +292,9 @@
 	  			}
 				if(preset_end_time!=null&&preset_end_time!=""){
 					$("#dpd2").val(preset_end_time);
-				}	
+				}
+				// 页面加载时根据条件查询
+				searchDuanzuInfo();
 	  			
 	  		})
 	  		
@@ -450,10 +454,15 @@
 			
 			<form id="findCondition" action="" method="post">
 				
+				<!-- 隐藏查询条件 -->
 				<input type="hidden" name="city_name" id="city_name"/>
 				<input type="hidden" name="preset_start_time" id="preset_start_time"/>
 				<input type="hidden" name="preset_end_time" id="preset_end_time"/>
-			
+				
+				<!-- 隐藏分页信息 -->
+				<input type="hidden" name="pageNum">
+				<input type="hidden" name="pageSize">
+				
 			<div class="search_type">
 				<div class="layui-form-item" pane="">
 				    <div class="Select">
@@ -810,18 +819,7 @@
 				</div>
 				
 			</div>
-			<div id="demo4"></div>
-				<script>
-					layui.use(['laypage', 'layer'], function(){
-						var laypage = layui.laypage,layer = layui.layer;
-							laypage.render({
-							elem: 'demo4'
-							,count: 100
-							,first: false
-							,last: false
-							});
-					});
-				</script>
+			<div id="pageDiv"></div>
 		</div>
 		<div class="footer">
 			<p style="text-align: center;">许可证号：晋ICP证180509号    安全联盟   太原科大信息科技有限公司</p>

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import duanzu.service.HotelIndexService;
 
 @Controller
@@ -21,10 +24,23 @@ public class HotelIndexController {
 	
 	@ResponseBody
 	@RequestMapping("/findCityDuanzuInfo.do")
-	public List<Map<String,Object>> findCityDuanzuInfo(@RequestParam Map<String,Object> condition,String[] houseType,String[] rentType,String[] facility){
+	public PageInfo<Map<String,Object>> findCityDuanzuInfo(@RequestParam Map<String,Object> condition,String[] houseType,String[] rentType,String[] facility){
+		// 每页显示数据量
+		int pageSize = 7;
+		if(condition.get("pageSize")!=null && condition.get("pageSize")!=""){
+			pageSize = Integer.parseInt((String)condition.get("pageSize"));
+		}
+		// 当前页
+		int pageNum = 1;
+		if(condition.get("pageNum")!=null && condition.get("pageNum")!=""){
+			pageNum = Integer.parseInt((String)condition.get("pageNum"));
+		}
+		//只对紧邻的下一条select语句进行分页查询，对之后的select不起作用
+		PageHelper.startPage(pageNum,pageSize);
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 			list = hotelService.findCityDuanzuInfo(condition,houseType,rentType,facility);
-		return list;
+		PageInfo<Map<String,Object>> pageInfo = new PageInfo<>(list);
+		return pageInfo;
 	}
 
 

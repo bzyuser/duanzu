@@ -27,7 +27,8 @@
 			hu.house_id,
 			hu.picture_url,
 			hi.house_name,
-			hi.house_desc
+			hi.house_desc,
+			hi.address
 		from 
 			house_base_info hi
 			join house_picture_url hu
