@@ -26,7 +26,13 @@
 		<script src="../../js/hotel.js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../../js/hotel.js/modernizr.custom.79639.js"></script>
 		<!--<noscript><link rel="stylesheet" type="text/css" href="css/noJS.css" /></noscript>-->
+		
+		<script type="text/javascript" src="../../js/js/hotelDetail.js"></script>
+		
 		<style>
+			.layui-bg-gray{
+				border-top: 6px solid lightgoldenrodyellow;
+			}
 			.icon {
 				width: 1.8em;
 				height: 1.8em;
@@ -218,7 +224,7 @@
 			}
 			.hotel_info {
 				width: 750px;
-				height: 1850px;
+				/* height: 1850px; */
 				background: white;
 				float: left;
 				margin-left: 100px;
@@ -229,7 +235,6 @@
 				float: left;
 				margin-left: 50px;
 				margin-top: 15px;
-				height: 550px;
 				width: 645px;
 			}
 			.sheshi-left {
@@ -238,7 +243,7 @@
 			.sheshi-right {
 				/*border: 1px solid yellow;*/
 				width: 525px;
-				height: 550px;
+				
 				float: right;
 				margin-top: -142px;
 			}
@@ -281,7 +286,7 @@
 			}
 			
 			.jieshao{
-				border:  2px solid red;
+				/* border:  2px solid red; */
 				float: left;
 				margin-left: 50px;
 				margin-top: 0px;
@@ -295,7 +300,7 @@
 				text-align: center;
 			}
 			.jieshao-right{
-				border: 1px solid yellow;
+				/* border: 1px solid yellow; */
 				width: 525px;
 				height: 150px;
 				float: right;
@@ -307,7 +312,7 @@
 			}
 			
 			.jiaotong{
-				border:  2px solid red;
+				/* border:  2px solid red; */
 				float: left;
 				margin-left: 50px;
 				margin-top: 0px;
@@ -322,7 +327,7 @@
 				text-align: center;
 			}
 			.jiaotong-right{
-				border: 1px solid yellow;
+				/* border: 1px solid yellow;*/
 				width: 525px;
 				height: 150px;
 				float: right;
@@ -334,7 +339,7 @@
 			}
 			
 			.zhoubian{
-				border:  2px solid red;
+				/* border:  2px solid red; */
 				/*float: left;*/
 				margin-left: 50px;
 				/*margin-top: 0px;*/
@@ -353,7 +358,7 @@
 				text-align: center;
 			}
 			.zhoubian-right{
-				border: 1px solid yellow;
+				/* border: 1px solid yellow;*/
 				width: 525px;
 				height: 150px;
 				position: absolute;
@@ -374,7 +379,7 @@
 			}
 			
 			.qita{
-				border:  2px solid red;
+				/* border:  2px solid red; */
 				/*float: left;*/
 				margin-left: 50px;
 				/*margin-top: 0px;*/
@@ -393,7 +398,7 @@
 				text-align: center;
 			}
 			.qita-right{
-				border: 1px solid yellow;
+				/* border: 1px solid yellow; */
 				width: 525px;
 				height: 150px;
 				position: absolute;
@@ -407,7 +412,7 @@
 			}
 
 			.xuzhi{
-				border:  2px solid red;
+				/* border:  2px solid red; */
 				float: left;
 				margin-left: 50px;
 				margin-top: 0px;
@@ -421,7 +426,7 @@
 			}
 		
 			.shiyong{
-				border:  2px solid red;
+			  /*	border:  2px solid red; */
 				float: left;
 				margin-left: 50px;
 				margin-top: 0px;
@@ -446,6 +451,8 @@
 				String house_id = request.getParameter("house_id");
 			%>
 			house_id = "<%=house_id%>";
+			// 调用查询
+			findHouseDetail(house_id);
 		</script>
 		
 	</head>
@@ -470,24 +477,24 @@
 			<div class="part1">
 				<div class="picture">
 					<div class="title">
-						<h2 style="font-size: 24px;">田园风格高档三房二厅一卫房，近地铁</h2>
+						<h2 style="font-size: 24px;" id="house_name"></h2>
 					</div>
 					<div class="location">
 						<p style="font-size: 18px; font-weight: normal;">
 							<svg class="icon" aria-hidden="true">
 								<use xlink:href="#icon-location"></use>
 							</svg>
-							上海松江区松江大学城广富林路1518弄</p>
+							<a id="address"></a></p>
 					</div>
 					<div class="pic">
-						<img src="../../images/hotel/3.jpg" alt="短租图片" style="width: 640px; height: 480px;" />
+						<img id="houseImg" src="" alt="短租图片" style="width: 640px; height: 480px;" />
 					</div>
 				</div>
 			</div>
 			<div class="part2">
 				<div class="price">
 					<div class="pric">
-						<p style="font-size: 24px;" id="prices"><span style="color: orange; font-size: 26px;">￥780</span>日均</p>
+						<p style="font-size: 24px;" id="prices"><span style="color: orange; font-size: 26px;" id="day_price"></span>日均</p>
 					</div>
 					<div class="select">
 						<div class="search_rent">
@@ -536,7 +543,8 @@
 							<div class="wrapper-demo ">
 								<div id="dd" class="wrapper-dropdown-3" tabindex="1 ">
 									<span>人数</span>
-									<ul class="dropdown">
+									<ul class="dropdown" id="peopleNum">
+										<!-- 
 										<li><a href="# ">1人</a></li>
 										<li><a href="# ">2人</a></li>
 										<li><a href="# ">3人</a></li>
@@ -547,6 +555,7 @@
 										<li><a href="# ">8人</a></li>
 										<li><a href="# ">9人</a></li>
 										<li><a href="# ">10人及以上</a></li>
+										 -->
 									</ul>
 									<svg class="icon2 " aria-hidden="true ">
 										<use xlink:href="#icon-fangwuxinxi_ruzhuren "></use>
@@ -598,7 +607,7 @@
 			
 							​</div>
 							<div class="totalPrice ">
-								<p style="font-size: 20px; ">总计：<span style="color: lightblue;font-size: 22px; ">￥2200</span></p>
+								<p style="font-size: 20px; ">总计：<span style="color: lightblue;font-size: 22px; " id="totalPrice"></span></p>
 							</div>
 							<div class="button-order ">
 								<button style="height: 40px;width: 300px;background: ; ">立即预定</button>
@@ -606,8 +615,8 @@
 						</div>
 					</div>
 					<div class="bossInfo">
-						<h2>朱女士</h2>
-						<p style="color: orange;font-size: 24px;">400-8130-400 转 49136</p>
+						<h2 id="hostName"></h2>
+						<p style="color: orange;font-size: 24px;" id="hostPhone"></p>
 					</div>
 				</div>
 			</div>
@@ -624,9 +633,14 @@
 						</svg>
 						<p style="font-size: 22px; font-weight: bolder;"><br />便利设施</p>
 					</div>
-					<div class="sheshi-right ">
-						<table class="bianlisheshi " width="540px">
+					
+					
+					
+					<div class="sheshi-right">
+						<div class="bianlisheshi " width="540px" id="sheshiInfo">
+								<!-- 
 							<tr class="sheshiDisplay">
+							
 								<td width="180px ">
 									<svg class="icon " aria-hidden="true " style="width: 30px; height: 30px; ">
 									  	<use xlink:href="#icon-xiyuyongpin "></use>
@@ -649,7 +663,7 @@
 							<tr class="sheshiDisplay">
 								<td width="180px ">
 									<svg class="icon " aria-hidden="true " style="width: 30px; height: 30px; ">
-									  	<use xlink:href="#icon-xiyuyongpin "></use>
+									  	<use xlink:href="#icon-xiyuyongpin"></use>
 									  	<span style="font-size: 18px; ">&nbsp;&nbsp;洗浴用品</span>
 									</svg>
 								</td>
@@ -826,8 +840,15 @@
 									</svg>
 								</td>
 							</tr>
-						</table>
+							
+							 -->
+							
+						</div>
 					</div>
+					
+					
+					
+					
 				</div>
 				<div class="line">
 					<hr class="layui-bg-gray">
@@ -842,20 +863,20 @@
 					<div class="xinxi-right">
 						<table style="font-size: 20px;line-height: 40px;width: 520;">
 							<tr style="line-width: 260px;">
-								<td class="td">房屋类型：公寓</td>
-								<td class="td">卫生间数量：1个（独立卫生间）</td>
+								<td class="td" id="house_type"></td>
+								<td class="td" id="toilet_num"></td>
 							</tr>
 							<tr>
-								<td class="td">出租类型：整套出租（130㎡）</td>
-								<td class="td">标准可住人数：7</td>
+								<td class="td" id="rent_out_type"></td>
+								<td class="td" id="available_people_num"></td>
 							</tr>
 							<tr>
-								<td class="td">卧室数量：3</td>
-								<td class="td">额外可增加人数：1（每人每晚￥150）</td>
+								<td class="td" id="home_num"></td>
+								<td class="td" id="extraAddPeopleNum"></td>
 							</tr>
 							<tr>
-								<td class="td">床位数量：3张（双人床）</td>
-								<td class="td">楼层：3/20</td>
+								<td class="td" id="bed_num"></td>
+								<td class="td" id="louceng"></td>
 							</tr>
 						</table>
 					</div>
@@ -871,7 +892,7 @@
 						<p style="font-size: 22px; font-weight: bolder;"><br />房屋介绍</p>
 					</div>
 					<div class="jieshao-right">
-						<p>此房是田园风格装修的三房二厅一卫一阳台房间，整套房间配置有四星，五星级别标准，墙面为白色高档墙纸，家具，设施，用具，厨房用具，电视机，空调，洗衣机，其他用具等，均为高档产品，看起来非常舒适，干净，有档次，很能满足大家接待贵客朋友和舒服居住条件。房间配备了无线网络，办公设备，可以满足大家简单办公。另外，厨房配料几乎全部免费，其他任何用具均全部免费。欢旅客们争先订房前来入住！</p>
+						<p id="houseDesc"></p>
 					</div>
 				</div>
 				<div class="line">
@@ -885,7 +906,7 @@
 						<p style="font-size: 22px; font-weight: bolder;"><br />交通情况</p>
 					</div>
 					<div class="jiaotong-right">
-						<p>地铁：靠近地铁9号线泗泾站，有车接送，提前联系房东<br>公交：松莘线B线（泗砖南路站）<br>驾车：沪闵高架路-杭州方向-中春路下-莘砖公路右转-泗砖南路左转-目的地<br>高速公路：G15莘砖公路下-左转-泗砖南路左转-目的地</p>
+						<p id="traffic">地铁：靠近地铁9号线泗泾站，有车接送，提前联系房东<br>公交：松莘线B线（泗砖南路站）<br>驾车：沪闵高架路-杭州方向-中春路下-莘砖公路右转-泗砖南路左转-目的地<br>高速公路：G15莘砖公路下-左转-泗砖南路左转-目的地</p>
 					</div>
 				</div>
 				<div class="line">
@@ -896,7 +917,7 @@
 						<p style="font-size: 22px; font-weight: bolder;">周边情况</p>
 					</div>
 					<div class="zhoubian-right">
-						<span class="text">房间位置在松江大学城地铁站旁边，出地铁站5分钟到达此房，周边是别墅群，大酒店，休闲俱乐部，各种风味餐厅一条街，万达商场，银行等等等。儿童乐园，泰晤士小镇，欢乐谷，玛雅水上乐园，佘山旅游度假区，辰山植物园等等</span>
+						<span class="text" id="rimDesc"></span>
 					</div>
 				</div>
 				<div class="line">
@@ -907,8 +928,7 @@
 						<p style="font-size: 22px; font-weight: bolder;">其他</p>
 					</div>
 					<div class="qita-right">
-						<!--<p>温馨提示：<br>1、为了保证您舒适入住，我们配置了品质较高的家私，请您在入住期间爱护房间内家具家电；<br>2、网页展示价格为最终价格，无其他额外费用<br>3、发票：普票需另加5个点</p>-->
-						<p>请准备好您的身份证件，我需要登记 不允许吸烟<br>为了不对邻居造成影响，请保持安静，不要大声喧哗<br>不要酗酒、赌博、涉黄、吸毒等，不要做违法的事情<br>爱护房屋和物品，卫生整洁<br>做饭后厨房要保持清洁</p>
+						<p id="otherMsg"></p>
 					</div>				
 				</div>
 				<div class="line">
@@ -918,19 +938,19 @@
 					<h3>入住须知</h3>
 					<table>
 						<tr>
-							<td>入住时间：14:00-24:00</td>
-							<td>清洁费：无</td>
+							<td id="checkInTime"></td>
+							<td id="cleanPrice"></td>
 						</tr>
 						<tr>
-							<td>最短入住天数：1天</td>
+							<td id="lessDay"></td>
 							<td>接受外宾：接受</td>
 						</tr>
 						<tr>
-							<td>退房时间：12:00 之前</td>
-							<td>押金：￥2000</td>
+							<td id="checkOutTime"></td>
+							<td id="cashPledge"></td>
 						</tr>
 						<tr>
-							<td>发票：不提供</td>
+							<td>发票：提供</td>
 							<td>是否与房东共住：否</td>
 						</tr>
 						

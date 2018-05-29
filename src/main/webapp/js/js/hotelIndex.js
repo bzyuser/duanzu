@@ -1,13 +1,7 @@
 
-// 页面加载执行
-$(function(){
-	
-	searchDuanzuInfo();
 
-})
-
-// 按条件查询
-function searchDuanzuInfo(){
+// 获取参数添加到表单中
+function getParame(){
 	// 获取参数
 	var city_name = $("#cityGoal").val();
 	var preset_start_time = $("#dpd1").val();
@@ -15,17 +9,31 @@ function searchDuanzuInfo(){
 	
 	// 把数据添加到表单中
 	$("#city_name").val(city_name);
-	$("#preset_start_time").val(preset_start_time);
-	$("#preset_end_time").val(preset_end_time);
+	if(preset_start_time!=null && preset_start_time!=""){
+		$("#preset_start_time").val(preset_start_time);
+	}
+	if(preset_end_time!=null && preset_end_time!=""){
+		$("#preset_end_time").val(preset_end_time);
+	}
 	
+}
+// 按条件查询
+function searchDuanzuInfo(){
+	
+	getParame();
 	
 	$.ajax({
 		url:contextPath+"/pages/hotel/findCityDuanZu/findCityDuanzuInfo.do",
 		type:"post",
 		data:$("#findCondition").serialize(),
 		dataType:"json",
-		success:function(infoList){
-			
+		success:function(pageInfo){
+			// 获取分页参数
+			var pageNum = pageInfo.pageNum;
+			var pageSize = pageInfo.pageSize;
+			var total = pageInfo.total;
+			// 获取数据
+			var infoList = pageInfo.list;
 			$("#dispalyInfo").html("");
 			for(var i=0;i<infoList.length;i++){
 				
@@ -58,10 +66,36 @@ function searchDuanzuInfo(){
 				);
 				
 			}
-			
+			// 开启分页组件
+			startPageShowInfo(total,pageNum,pageSize);
 		},
 		error:function(){
 			alert("查询短租信息失败");
 		}
 	})
 }
+
+// 分页
+function startPageShowInfo(total,pageNum,pageSize){
+	// 使用layui的分页插件
+    layui.use(['laypage','layer'],function () {
+        var laypage = layui.laypage,layer = layui.layer;
+        // 执行一个laypage实例
+        laypage.render({
+            elem:'pageDiv', // 此处时id，但不用加#
+            count:total,    // 数据总数（服务端获取）
+            limit:pageSize, // 每页显示条数
+            curr:pageNum,   //当前页号
+            layout:['prev','page','next','count'],//显示哪些分页组件
+            jump:function (obj,first) { // 点击页号时执行的函数
+                $("[name='pageNum']").val(obj.curr);    //向隐藏域设置当前页的值
+                $("[name='pageSize']").val(obj.limit); // 向隐藏域设置当前页的大小
+                if(!first){ //首次不执行（点击的时候才执行）
+                	searchDuanzuInfo(); //分页执行查询函数（这个函数必须写在这）
+                }
+            }
+        });
+    });
+}
+
+
