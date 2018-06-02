@@ -11,11 +11,12 @@ public interface IndexService {
 	 */
 	public Map<String,Object> findIndexPageInfo();
 	
+
 	/**
-	 * 根据条件查询 短租信息
-	 * @param condition
+	 * 增加房屋热度等级
+	 * @param house_id
 	 * @return
 	 */
-	public List<Map<String,Object>> findCityInfo(Map<String,Object> condition);
+	public boolean updateHouseHotLevel(String house_id);
 	
 }
