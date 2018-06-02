@@ -1,9 +1,9 @@
 package duanzu.entity;
 
 public class OrderManage {
-    private String orderId;
+    private Integer orderNum;
 
-    private String orderNum;
+    private String orderId;
 
     private String houseId;
 
@@ -11,20 +11,20 @@ public class OrderManage {
 
     private String orderDetailId;
 
+    public Integer getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(Integer orderNum) {
+        this.orderNum = orderNum;
+    }
+
     public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
-    }
-
-    public String getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(String orderNum) {
-        this.orderNum = orderNum == null ? null : orderNum.trim();
     }
 
     public String getHouseId() {

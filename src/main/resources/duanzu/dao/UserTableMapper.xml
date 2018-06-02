@@ -3,6 +3,9 @@
 <mapper namespace="duanzu.dao.UserTableMapper" >
   <resultMap id="BaseResultMap" type="duanzu.entity.UserTable" >
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="birth" property="birth" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
@@ -68,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, phone, email, password, remark
+    user_id, name, birth, sex, user_name, phone, email, password, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.UserTableExample" >
     select
@@ -101,10 +104,12 @@
     </if>
   </delete>
   <insert id="insert" parameterType="duanzu.entity.UserTable" >
-    insert into user_table (user_id, user_name, phone, 
+    insert into user_table (user_id, name, birth, 
+      sex, user_name, phone, 
       email, password, remark
       )
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{birth,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
@@ -113,6 +118,15 @@
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="birth != null" >
+        birth,
+      </if>
+      <if test="sex != null" >
+        sex,
       </if>
       <if test="userName != null" >
         user_name,
@@ -133,6 +147,15 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -163,6 +186,15 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birth != null" >
+        birth = #{record.birth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
       <if test="record.userName != null" >
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
@@ -186,6 +218,9 @@
   <update id="updateByExample" parameterType="map" >
     update user_table
     set user_id = #{record.userId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      birth = #{record.birth,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -198,6 +233,15 @@
   <update id="updateByPrimaryKeySelective" parameterType="duanzu.entity.UserTable" >
     update user_table
     <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null" >
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
@@ -218,7 +262,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="duanzu.entity.UserTable" >
     update user_table
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
