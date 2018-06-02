@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.FangDongManagerMapper" >
+	
+	<select id="selectAllFangYuanByUserId" parameterType="String" resultMap="house">
+		SELECT *
+		FROM house_base_info b,house_detail_info d,house_picture_url p
+		WHERE b.host_family_id=
+			(SELECT host_family_id FROM host_family_info WHERE user_id=#{id});
+	</select>
+	<resultMap id="house" type="duanzu.entity.HouseBaseInfo" >
+		<id property="houseId" column="house_id"></id>
+		<result property="houseName" column="house_name"></result>
+		<result property="address" column="address"></result>
+		<result property="houseType" column="house_type"></result>
+		<result property="hotLevel" column="hot_level"></result>
+		<result property="homeType" column="home_Type"></result>
+		<result property="time" column="time"></result>
+		<association property="detailInfo" javaType="duanzu.entity.HouseDetailInfo">
+			<id property="detailId" column="detail_id"></id>
+			<result property="homeNum" column="home_num"></result>
+			<result property="toiletNum" column="toilet_num"></result>
+			<result property="towerLevel" column="tower_level"></result>
+			<result property="area" column="area"></result>
+		</association>
+		<collection property="pictures" javaType="java.util.List" ofType="duanzu.entity.HousePictureUrl">
+			<id property="housePictureUrlId" column="house_picture_url_id"></id>
+			<result property="pictureType" column="picture_type"></result>
+			<result property="pictureUrl" column="picture_url"></result>
+		</collection>
+	</resultMap>
+	
+	
+</mapper>

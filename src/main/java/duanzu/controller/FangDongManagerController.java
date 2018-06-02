@@ -2,6 +2,7 @@ package duanzu.controller;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import duanzu.entity.HostFamilyInfo;
+import duanzu.entity.HouseBaseInfo;
+import duanzu.service.AddFangyuanService;
 import duanzu.service.HostFamilyInfoService;
 
 @Controller
@@ -19,12 +22,33 @@ import duanzu.service.HostFamilyInfoService;
 public class FangDongManagerController {
 	@Autowired
 	private HostFamilyInfoService hostService;
+	@Autowired
+	private AddFangyuanService fangyuanService;
 	
-	//上传房源
+	//删除房源
+		@RequestMapping("/deleteOneFangyuan.do")
+		@ResponseBody
+		public Map<String,Object> deleteOneFangyuan(String houseId){
+			Map<String,Object> map = new HashMap<>();
+			try {
+				boolean b = fangyuanService.deleteFangyuanById(houseId);
+				if(b){
+					map.put("msg", "删除成功！");
+				}else map.put("msg", "删除失败！");
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+	        return map;
+		}
+	
+	//加载房东的房源信息
 	@RequestMapping("/loadhosthouseinfo.do")
 	@ResponseBody
 	public Map<String,Object> loadhosthouseinfo(String userId){
 		Map<String,Object> map = new HashMap<>();
+		List<HouseBaseInfo> houses = fangyuanService.selectAllFangYuanByUserId(userId);
+		map.put("houses", houses);
         return map;
 	}
 	

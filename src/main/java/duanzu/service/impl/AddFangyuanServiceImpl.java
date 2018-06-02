@@ -1,6 +1,8 @@
 package duanzu.service.impl;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,15 +17,21 @@ import duanzu.dao.HouseBaseInfoMapper;
 import duanzu.dao.HouseDetailInfoMapper;
 import duanzu.dao.HousePictureUrlMapper;
 import duanzu.dao.PriceAndRequestInfoMapper;
+import duanzu.dao.Custom.FangDongManagerMapper;
 import duanzu.entity.City;
 import duanzu.entity.CityExample;
 import duanzu.entity.HostFamilyInfo;
 import duanzu.entity.HostFamilyInfoExample;
 import duanzu.entity.HouseBaseInfo;
+import duanzu.entity.HouseBaseInfoExample;
 import duanzu.entity.HouseDetailInfo;
+import duanzu.entity.HouseDetailInfoExample;
 import duanzu.entity.HousePictureUrl;
+import duanzu.entity.HousePictureUrlExample;
 import duanzu.entity.PriceAndRequestInfo;
+import duanzu.entity.PriceAndRequestInfoExample;
 import duanzu.service.AddFangyuanService;
+import duanzu.util.FileHandleUtil;
 import duanzu.util.NoteUtil;
 
 @Service
@@ -41,6 +49,9 @@ public class AddFangyuanServiceImpl implements AddFangyuanService {
 	private PriceAndRequestInfoMapper priceAndRequestMapper;
 	@Autowired
 	private HousePictureUrlMapper pictureMapper;
+	@Autowired
+	private FangDongManagerMapper houseCustomMapper;
+
 	
 	
 	@Override
@@ -85,7 +96,7 @@ public class AddFangyuanServiceImpl implements AddFangyuanService {
 		HouseBaseInfo houseBaseInfo = new HouseBaseInfo();
 		houseBaseInfo.setHouseId(houseId);
 		houseBaseInfo.setCityId(cityId);
-		houseBaseInfo.setHostFamilyId(houseId);
+		houseBaseInfo.setHostFamilyId(hostId);
 		houseBaseInfo.setHouseName((String)map.get("houseName"));
 		houseBaseInfo.setRentOutType((String)map.get("rentOutType"));
 		houseBaseInfo.setHouseType((String)map.get("houseType"));
@@ -97,6 +108,11 @@ public class AddFangyuanServiceImpl implements AddFangyuanService {
 		houseBaseInfo.setTraffic((String)map.get("traffic"));
 		houseBaseInfo.setRimDesc((String)map.get("rimDesc"));
 		houseBaseInfo.setOther((String)map.get("other"));
+		String time = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		Date date = new Date();
+		time = sdf.format(date);
+		houseBaseInfo.setTime(time);
 		houseBaseInfo.setHotLevel("0");
 		houseBaseInfo.setStatus("0");
 		int i = houseBaseInfoMapper.insertSelective(houseBaseInfo);
@@ -150,6 +166,58 @@ public class AddFangyuanServiceImpl implements AddFangyuanService {
 		picurl.setPictureType(picType);
 		int n = pictureMapper.insertSelective(picurl);
 		if(n==1){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public List<HouseBaseInfo> selectAllFangYuanByUserId(String userId) {
+		List<HouseBaseInfo> houses = houseCustomMapper.selectAllFangYuanByUserId(userId);
+		//对图片信息路径进行处理
+		String path = FileHandleUtil.getValue("path","requestHotelFile");
+		for(HouseBaseInfo house:houses){
+			List<HousePictureUrl> pictures = house.getPictures();
+			for(HousePictureUrl picture:pictures){
+				picture.setPictureUrl(path+picture.getPictureUrl());
+			}
+		}
+		
+		return houses;
+	}
+
+
+	@Override
+	public boolean deleteFangyuanById(String housiId) throws SQLException {
+		//删除房源详细信息
+		HouseDetailInfoExample houseEx = new HouseDetailInfoExample();
+		HouseDetailInfoExample.Criteria criteria = houseEx.createCriteria();
+		criteria.andHouseIdEqualTo(housiId);
+		int num1 = houseDetailInfoMapper.deleteByExample(houseEx);
+		//删除房源价格信息
+		PriceAndRequestInfoExample priceEx = new PriceAndRequestInfoExample();
+		PriceAndRequestInfoExample.Criteria criteriaPrice = priceEx.createCriteria();
+		criteriaPrice.andHouseIdEqualTo(housiId);
+		int num2 = priceAndRequestMapper.deleteByExample(priceEx);
+		//删除房源基本信息
+		HouseBaseInfoExample baseEx = new HouseBaseInfoExample();
+		HouseBaseInfoExample.Criteria criteriaBase = baseEx.createCriteria();
+		criteriaBase.andHouseIdEqualTo(housiId);
+		int num3 = houseBaseInfoMapper.deleteByExample(baseEx);
+		//查询出图片信息，并从文件中删除，然后删除数据中的信息
+		HousePictureUrlExample pictureEx = new HousePictureUrlExample();
+		HousePictureUrlExample.Criteria criteriapic = pictureEx.createCriteria();
+		criteriapic.andHouseIdEqualTo(housiId);
+		List<HousePictureUrl> urls = pictureMapper.selectByExample(pictureEx);
+		//循环遍历删除文件夹中的图片信息
+		for(HousePictureUrl url:urls){
+			String urlName = url.getPictureUrl();
+			 FileHandleUtil.deletePlainFile("path", "attachmentFile", urlName);
+		}
+		//删除数据库中的图片信息
+		int num4 = pictureMapper.deleteByExample(pictureEx);
+		if(num3!=0){
 			return true;
 		}
 		return false;
