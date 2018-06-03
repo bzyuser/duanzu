@@ -1,5 +1,6 @@
 package duanzu.service.impl;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,24 @@ public class RegisterServiceImpl implements RegisterService {
 			map.put("msg", "用户名存在");
 		}
 		return map;
+	}
+
+	@Override
+	public UserTable selectByUserId(String userId) throws SQLException {
+		UserTable users = userMapper.selectByPrimaryKey(userId);
+		if(users!=null){
+			return users;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean saveByUserId(UserTable userInfo) throws SQLException {
+		int n = userMapper.updateByPrimaryKeySelective(userInfo);
+		if(n==1){
+			return true;
+		}
+		return false;
 	}
 
 }

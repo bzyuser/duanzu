@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
 	public Map<String,Object> checkLogin(String name, String password) {
 		Map<String,Object> map = new HashMap<>();
 		//对密码进行加密
-		String md5Password = NoteUtil.md5(password);
+		//String md5Password = NoteUtil.md5(password);
 		
 		UserTableExample userEx = new UserTableExample();
 		UserTableExample.Criteria criteria = userEx.createCriteria();
@@ -32,7 +32,7 @@ public class LoginServiceImpl implements LoginService {
 		if(lists.size()!=0){
 			UserTable user = lists.get(0);
 			String truePassword = user.getPassword();
-			if(truePassword.equals(md5Password)){
+			if(truePassword.equals(password)){
 				map.put("status", 1);
 				map.put("msg", "密码正确");
 			} else{

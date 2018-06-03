@@ -9,4 +9,6 @@ import duanzu.entity.UserTable;
 
 public interface RegisterService {
 	Map<String,Object> register(UserTable userInfo)throws SQLException;
+	UserTable selectByUserId(String userId)throws SQLException;
+	boolean saveByUserId(UserTable userInfo)throws SQLException;
 }
