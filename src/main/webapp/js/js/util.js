@@ -18,3 +18,15 @@ function exit(){
 	})
 	});
 }
+
+
+function hasSession(){
+	var session = $("#session").val();
+	if(session!=null && session!=""){
+		$("#nav1").css("display","none");
+		$("#nav2").css("display","");
+	}else{
+		$("#nav2").css("display","none");
+		$("#nav1").css("display","");
+	}
+}

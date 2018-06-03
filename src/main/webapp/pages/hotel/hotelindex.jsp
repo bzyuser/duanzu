@@ -32,6 +32,7 @@
 	    
 	    <script src="../../js/js/index_login_register.js"></script>
 	    <script type="text/javascript" src="../../js/js/hotelIndex.js"></script>
+	    <script type="text/javascript" src="../../js/js/util.js"></script>
 	    
 	    <style>
 	    	/************************************阿里巴巴图标库的引入*******************************/
@@ -264,6 +265,19 @@
 			#sousuoAnNiu:hover{
 				color:yellow;
 			}
+			
+			#nav2 {
+				float:right;
+				margin-right:30px;
+	
+			}
+			#nav2 dl{
+				background:none;
+			}
+			#nav2 dd{
+				margin-top:10px;
+			}
+			
 	  </style>
 	  <script type="text/javascript">
 	  		// 获取get参数
@@ -271,6 +285,7 @@
 	  		var preset_start_time;
 	  		var preset_end_time;
 	  		$(function(){
+	  			hasSession();
 	  			<%
 	  				String city_name = request.getParameter("city_name");
 	  					if(city_name!=null){
@@ -308,10 +323,43 @@
 					Keda短租
 				</p>
 			</div>
-			<div class="nav">
-				<button type="button" onclick="toLogin()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
-				<button type="button" onclick="toRegister()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
+			
+			<div id="nav2">
+				<input type="hidden" id="session" value="${user.userId}"/>
+				<ul class="layui-nav" style="background:none;" style="display: none">
+					
+					<li class="layui-nav-item"><a>欢迎 ${user.userName}</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/fangdongManager.jsp">我是房东</a>
+							</dd>
+							<dd>
+								<a href="/duanzu/pages/hotel/zukeManager.jsp">我是租客</a>
+							</dd>
+							
+						</dl>
+					</li>	
+					<li class="layui-nav-item"><a>个人信息</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/zhanghuManager.jsp">修改信息</a>
+							</dd>
+							<dd>
+								<a onclick="exit();" style="cursor:pointer;">退出登录</a>
+							</dd>	
+						</dl>
+					</li>
+				</ul>
 			</div>
+
+			<div class="nav" id="nav1" style="display: none">
+				<button type="button" onclick="toLogin()"
+					class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
+				<button type="button" onclick="toRegister()"
+					class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
+			</div>
+			
+			
 		</div>
 		<div class="banner">
 			<div class="search_rent">

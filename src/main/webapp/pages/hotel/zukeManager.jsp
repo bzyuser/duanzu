@@ -212,6 +212,14 @@
 			.delete{
 				text-decoration: underline;
 			}
+			#nav2 {
+				float:right;
+				margin-right:30px;
+	
+			}
+			#nav2 dl{
+				background:none;
+			}
 		</style>
 	</head>
 	<body>
@@ -225,14 +233,33 @@
 					Keda短租
 				</p>
 			</div>
-			<div class="nav">
-				<div class="tubiao">
-					<svg class="icon" aria-hidden="true ">
-						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
-					</svg>
-				</div>
-				<span class="username">Hi,陈洁</span>
-				<div class="exit"><a href="#">退出登录</a></div>
+			
+			<div id="nav2">
+				<input type="hidden" id="session" value="${user.userId}"/>
+				<ul class="layui-nav" style="background:none;">
+					
+					<li class="layui-nav-item"><a>欢迎 ${user.userName}</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/fangdongManager.jsp">我是房东</a>
+							</dd>
+							<dd>
+								<a href="/duanzu/pages/hotel/zukeManager.jsp">我是租客</a>
+							</dd>
+							
+						</dl>
+					</li>	
+					<li class="layui-nav-item"><a>个人信息</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/zhanghuManager.jsp">修改信息</a>
+							</dd>
+							<dd>
+								<a onclick="exit();" style="cursor:pointer;">退出登录</a>
+							</dd>	
+						</dl>
+					</li>
+				</ul>
 			</div>
 			
 		</div>

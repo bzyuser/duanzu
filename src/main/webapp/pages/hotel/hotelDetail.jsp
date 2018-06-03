@@ -29,6 +29,7 @@
 		
 		<script src="../../js/js/index_login_register.js"></script>
 		<script type="text/javascript" src="../../js/js/hotelDetail.js"></script>
+		<script type="text/javascript" src="../../js/js/util.js"></script>
 		
 		<style>
 			.layui-bg-gray{
@@ -444,6 +445,14 @@
 				/*margin-left: 50px;*/
 				margin-top: 10px;
 			}
+		#nav2 {
+			float:right;
+			margin-right:30px;
+			
+		}
+		#nav2 dl{
+			background:none;
+		}
 		
 		</style>
 		<script type="text/javascript">
@@ -453,6 +462,7 @@
 			%>
 			house_id = "<%=house_id%>";
 			$(function(){
+				hasSession();
 				$("#house_id").text(house_id);
 				// 调用查询
 				findHouseDetail(house_id);
@@ -470,10 +480,42 @@
 					Keda短租
 				</p>
 			</div>
-			<div class="nav">
-				<button type="button" onclick="toLogin()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
-				<button type="button" onclick="toRegister()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
+			
+			<div id="nav2">
+				<input type="hidden" id="session" value="${user.userId}"/>
+				<ul class="layui-nav" style="background:none;" style="display: none">
+					
+					<li class="layui-nav-item"><a>欢迎 ${user.userName}</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/fangdongManager.jsp">我是房东</a>
+							</dd>
+							<dd>
+								<a href="/duanzu/pages/hotel/zukeManager.jsp">我是租客</a>
+							</dd>
+							
+						</dl>
+					</li>	
+					<li class="layui-nav-item"><a>个人信息</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/zhanghuManager.jsp">修改信息</a>
+							</dd>
+							<dd>
+								<a onclick="exit();" style="cursor:pointer;">退出登录</a>
+							</dd>	
+						</dl>
+					</li>
+				</ul>
 			</div>
+
+			<div class="nav" id="nav1" style="display: none">
+				<button type="button" onclick="toLogin()"
+					class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
+				<button type="button" onclick="toRegister()"
+					class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
+			</div>
+			
 			<!--<div class="fangyuanInfo">
 				<button class="layui-btn layui-btn-lg layui-btn-primary">房源信息</button>
 			</div>-->
