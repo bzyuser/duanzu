@@ -1,4 +1,5 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@include file="/tag.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -25,6 +26,9 @@
 		<script src="../../js/hotel.js/bootstrap.min.js"></script>
 		<!--<script type="text/javascript" src="../../js/hotel.js/modernizr.custom.79639.js"></script>-->
 		<!--<noscript><link rel="stylesheet" type="text/css" href="css/noJS.css" /></noscript>-->
+		
+		<script type="text/javascript" src="../../js/js/order.js"></script>
+		
 		<style>
 			.icon {
 				width: 1.8em;
@@ -120,12 +124,12 @@
 			.main{
 				width: 1366px;
 				height:680px;
-				background: lightgoldenrodyellow;
+				/*background: lightgoldenrodyellow;*/
 				margin-top: 5px;
 			}
 			.orderInfo {
 				width: 1250px;
-				height: 650px;
+				/*height: 650px;*/
 				background: white;
 				float: left;
 				margin-left: 50px;
@@ -169,7 +173,7 @@
 				float: left;
 				margin-left: 50px;
 				width:1100px;
-				height: 300px;
+				height: 342px;
 				border: 2px solid lightgoldenrodyellow;
 				margin-top: 20px;
 				margin-left: 80px;
@@ -215,10 +219,10 @@
 			
 			.footer{
 				float: left;
-				height: 100px;
+				height: 80px;
 				width: 1366px;
 				background: lightgrey;	
-				position: relative;
+				/*position: relative;*/
 				/*margin-left: 50px;*/
 				margin-top: 5px;
 			}
@@ -268,13 +272,13 @@
 								<td>总价</td>
 							</tr>
 							<tr class="xinxicontent" style="height: 50px;">
-								<td>05/22/2018</td>
-								<td>05/25/2018</td>
-								<td>3天</td>
-								<td>5人</td>
+								<td id="startTime">${param.startTime }</td>
+								<td id="endTime">${param.endTime }</td>
+								<td id="checkIndays"></td>
+								<td><a id="check_in_people_num">${param.personNum }</a>人</td>
 								<td>1套</td>
-								<td>780元</td>
-								<td>3900元</td>
+								<td>￥<a id="price">${param.day_price }</a>元</td>
+								<td>￥<a id="totalPrice"></a>元</td>
 							</tr>
 						</table>
 					</div>
@@ -283,6 +287,12 @@
 					<div class="kuai"></div>
 					<div class="text1" style="font-size: 25px;">用户信息</div>
 					<div class="line"></div>
+					
+					<form id="otherInfo" method="post">
+						<!-- 存放 同住人信息，用于表单提交 -->
+					</form>
+					<div class="userInfo" style="height:160px;"></div>
+					<!-- 
 					<div class="usertable">
 						<div class="box1">
 						    <div class="text2"><p style="font-size: 20px;">姓名：</p></div>
@@ -310,16 +320,42 @@
 					  	</div>
 					</div>
 					
+					 -->	
+					
+					
 				</div>
+				
+				<!-- 
 				<div class="submit">
-					<button style="height: 35px;width: 295px; background: lightgreen;">提交订单</button>
+					<button type="button" onclick="submitOrder();" style="height: 35px;width: 295px; background: lightgreen;">提交订单</button>
 				</div>
+				 -->
+				 
+				<!-- 放需要传的订单数据，用于表单提交 -->
+				<form action="" method="post" id="orderInfo">
+					<input type="hidden" name="house_id" value="${param.house_id }">
+					<input type="hidden" name="check_in_time" value="${param.startTime }">
+					<input type="hidden" name="check_out_time" value="${param.endTime }">
+					<input type="hidden" name="check_in_days" id="check_in_days" value="">
+					<input type="hidden" name="check_in_people_num" value="${param.personNum }">
+					<input type="hidden" name="total_price" id="total_price" value="">
+					<input type="hidden" name="user_id" value="">
+					<input type="hidden" name="name" value="">
+					<input type="hidden" name="id_card" value="">
+					<input type="hidden" name="phone" value="">
+					<input type="hidden" name="status" value="待入住">
+				</form>
+				
 			
 			</div>
 		</div>
-		<div class="footer">
+		
+		<div class="footer">	
 			<p style="text-align: center;">许可证号：晋ICP证180509号    安全联盟   太原科大信息科技有限公司</p>
-			<p style="text-align: center;">京公网安备 201420020104号</p>
+			<p style="text-align: center;text-line:5px;">京公网安备 201420020104号</p>
+			<div class="submit">
+				<button type="button" onclick="submitOrder();" style="height: 35px;width: 295px; background: lightgreen;margin-top:-120px;">提交订单</button>
+			</div>
 		</div>
 	</body>
 </html>

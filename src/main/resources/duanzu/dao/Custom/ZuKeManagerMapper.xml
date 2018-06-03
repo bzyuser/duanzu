@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.ZuKeManagerMapper" >
+
+	<select id="findZuKeOrderInfo" parameterType="map" resultType="map">
+		
+		select
+			od.order_id,
+			od.check_in_time,
+			od.check_out_time,
+			od.check_in_days,
+			od.check_in_people_num,
+			od.total_price,
+			od.status,
+			om.order_num,
+			om.house_id,
+			om.user_id,
+			hb.house_name,
+			hb.address,
+			hf.real_name,
+			hf.sex
+			from
+			order_detail od
+			join order_manage om
+				on od.order_detail_id = om.order_detail_id
+			join house_base_info hb 
+				on hb.house_id = om.house_id
+			join host_family_info hf
+				on hf.host_family_id = hb.host_family_id
+			<where>
+				om.user_id = #{user_id}
+				
+				<if test="status!=''">
+					and od.status = #{status}
+				</if>
+				
+			</where>
+	</select>
+
+</mapper>

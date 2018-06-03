@@ -26,7 +26,7 @@ public class HotelIndexController {
 	@RequestMapping("/findCityDuanzuInfo.do")
 	public PageInfo<Map<String,Object>> findCityDuanzuInfo(@RequestParam Map<String,Object> condition,String[] houseType,String[] rentType,String[] facility){
 		// 每页显示数据量
-		int pageSize = 7;
+		int pageSize = 5;
 		if(condition.get("pageSize")!=null && condition.get("pageSize")!=""){
 			pageSize = Integer.parseInt((String)condition.get("pageSize"));
 		}

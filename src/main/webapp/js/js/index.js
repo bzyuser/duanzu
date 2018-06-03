@@ -79,6 +79,15 @@ $(function(){
 					)
 				}
 			}
+			
+			// 重新调用遮罩
+			var a=new sHover("sHoverItem","sIntro");
+			 a.set({
+			 	slideSpeed:5,
+			 	opacityChange:true,
+			 	opacity:80
+			 });
+			
 		},
 		error:function(){
 			alert("页面加载数据失败")

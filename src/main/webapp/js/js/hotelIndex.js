@@ -38,7 +38,8 @@ function searchDuanzuInfo(){
 			for(var i=0;i<infoList.length;i++){
 				
 				$("#dispalyInfo").append(
-						"<div class='hotel'>"+
+					"<div class='hotel' onclick='toshowDetail(this);'>"+
+						"<div style='display:none;'>"+infoList[i].house_id+"</div>"+
 						"<div class='hotel-pic'><img src="+infoList[i].picture_url+" alt='短租房间图片' height='240px' width='360px'></div>"+
 						"<div class='hotel-info'>"+
 							"<div class='hotel-title'>"+
@@ -98,4 +99,8 @@ function startPageShowInfo(total,pageNum,pageSize){
     });
 }
 
-
+// 点击跳转到详细房屋页面
+function toshowDetail(obj){
+	var house_id = $(obj).find("div").eq(0).text();
+	window.location.href="/duanzu/pages/hotel/hotelDetail.jsp?house_id="+house_id;
+}

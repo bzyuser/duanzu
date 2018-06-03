@@ -18,17 +18,18 @@ function findHouseDetail(house_id){
 			$("#house_name").html(baseInfo.houseName);
 			$("#address").text(baseInfo.address);
 			$("#houseImg").attr("src","/pic/house/"+housePicInfo.pictureUrl);
-			$("#day_price").text("￥"+pqInfo.dayPrice);
+			$("#day_price").text(pqInfo.dayPrice);
 			$("#peopleNum").html("");
 			for(var i=0;i<detailInfo.availablePeopleNum;i++){
 				var num = i + 1;
 				$("#peopleNum").append(
-					"<li><a>"+num+"&nbsp;人</a></li>"
+					"<li onclick='select(this);'><a>"+num+"</a></li>"
 				);
 			}
-			$("#totalPrice").text(baseInfo.price);
+			$("#totalPrice").text("￥");
+			
 			$("#hostName").text(hostInfo.realName+hostInfo.sex+"士");
-			$("#hostPhone").text(hostInfo.phone+"转 49136");
+			$("#hostPhone").text(hostInfo.phone+" 转 49136");
 			$("#sheshiInfo").html("");
 			for(var i=0;i<facilityList.length;i++){
 				$("#sheshiInfo").append(
@@ -51,7 +52,16 @@ function findHouseDetail(house_id){
 			$("#houseDesc").text(baseInfo.houseDesc);
 			$("#traffic").text(baseInfo.traffic);
 			$("#rimDesc").text(baseInfo.rimDesc);
-			$("#otherMsg").text(baseInfo.other);
+			
+			// 其他信息是根据“；”拆分换行（注意：  ‘；’是中文）
+			$("#otherMsg").text("");
+			var others = (baseInfo.other).split("；");
+			for(var i=0;i<others.length;i++){
+				$("#otherMsg").append(
+					others[i]+"<br/>"
+				);
+			}
+			
 			$("#checkInTime").text("入住时间："+pqInfo.checkInStartTime+"--"+pqInfo.checkInEndTime);
 			$("#cleanPrice").text("清洁费："+pqInfo.cleanPrice);
 			$("#lessDay").text("最短入住天数："+pqInfo.lessDay+"天");
@@ -64,6 +74,65 @@ function findHouseDetail(house_id){
 	})
 }
 
+// 选择入住日期、退房日期后计算金额
+function calculTotalPrice(){
+	// 获取单价/天
+	var day_price = $("#day_price").text();
+	// 获取选择的日期
+	var start = $("#dpd1").val();
+	var end = $("#dpd2").val();
+	var num = DateDiff(start,end);
+	//计算总价
+	var total_price = num*day_price;
+	// 更新到总价
+	$("#totalPrice").text("￥"+total_price+" 元");
+}
+
+//计算字符串日期天数差
+function  DateDiff(sDate1,sDate2){    //sDate1和sDate2是06/01/2017格式 
+   var  aDate,oDate1,oDate2,iDays ; 
+   aDate =  sDate1.split("/") ; 
+   //转换为12-18-2002格式  
+   oDate1 = new  Date(aDate[0]+'/'+aDate[1]+'/'+aDate[2]);
+   aDate = sDate2.split("/"); 
+   oDate2 = new  Date(aDate[0]+'/'+aDate[1]+'/'+aDate[2]); 
+   //把相差的毫秒数转换为天数      
+   iDays = parseInt(Math.abs(oDate1-oDate2)/1000/60/60/24);
+   return iDays;
+}
+
+// 人数下拉菜单选择功能脚本
+function select(obj){
+	// 获取选择的值
+	var num = $(obj).find("a").text();
+	// 把值添加到span中
+	$("#personNum").text(num);
+}
+
+// 前往订单提交页面
+function toSubmit(){
+	// 获取参数
+	var house_id = $("#house_id").text();
+	var day_price = $("#day_price").text();
+	var startTime = $("#dpd1").val();
+	var endTime = $("#dpd2").val();
+	var personNum = $("#personNum").text();
+	//非空性判断
+	if(startTime==null || startTime == ""){
+		alert("请选择预定开始时间");
+		return;
+	}
+	if(endTime==null || endTime == ""){
+		alert("请选择预定退房时间");
+		return;
+	}
+	if(personNum=="人数"){
+		alert("请选择预定人数");
+		return;
+	}
+	// 页面跳转并传参
+	window.location.href="/duanzu/pages/hotel/order.jsp?house_id="+house_id+"&day_price="+day_price+"&startTime="+startTime+"&endTime="+endTime+"&personNum="+personNum;
+}
 
 // 根据设施选择图标
 function sheshi_icon(obj){
@@ -86,7 +155,7 @@ function sheshi_icon(obj){
 	case "吸烟": iconUrl = "#icon-xiyan";
 		return iconUrl;
 	case "洗浴用品": iconUrl = "#icon-xiyuyongpin";
-	return iconUrl;
+		return iconUrl;
 	case "房屋信息": iconUrl = "#icon-fangwuxinxi";
 		return iconUrl;
 	case "票务": iconUrl = "#icon-piaowu";

@@ -30,6 +30,7 @@
 	    <!--<script src="http://www.jq22.com/jquery/jquery-1.9.1.js"></script>-->
 	    <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 	    
+	    <script src="../../js/js/index_login_register.js"></script>
 	    <script type="text/javascript" src="../../js/js/hotelIndex.js"></script>
 	    
 	    <style>
@@ -177,13 +178,13 @@
 	    		margin-left: 78px;
 	    	}
 	    	.main{
-	    		height: 3400px;
+	    		height: 1600px;
 	    		width: 1366px;
 	    		background: lightgoldenrodyellow;
 	    		margin-top: 10px;
 	    	}
 	    	.main_box{
-	    		height: 3350px;
+	    		height: 1600px;
 	    		width: 1250px;
 	    		background: white;
 	    		float: left;
@@ -245,8 +246,7 @@
 	    		font-size: 24px;
 	    		font-weight: bolder;
 	    	}
-			#demo4{
-	    		float: left;
+			#pageDiv{
 	    		margin-left: 490px;
 	    	}
 			.footer{
@@ -309,8 +309,8 @@
 				</p>
 			</div>
 			<div class="nav">
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/login.html?__hbt=1526888466383"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button></a>
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/register0.html?__hbt=1526888525773"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button></a>
+				<button type="button" onclick="toLogin()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
+				<button type="button" onclick="toRegister()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
 			</div>
 		</div>
 		<div class="banner">

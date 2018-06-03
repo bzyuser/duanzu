@@ -27,6 +27,7 @@
 		<script type="text/javascript" src="../../js/hotel.js/modernizr.custom.79639.js"></script>
 		<!--<noscript><link rel="stylesheet" type="text/css" href="css/noJS.css" /></noscript>-->
 		
+		<script src="../../js/js/index_login_register.js"></script>
 		<script type="text/javascript" src="../../js/js/hotelDetail.js"></script>
 		
 		<style>
@@ -451,8 +452,12 @@
 				String house_id = request.getParameter("house_id");
 			%>
 			house_id = "<%=house_id%>";
-			// 调用查询
-			findHouseDetail(house_id);
+			$(function(){
+				$("#house_id").text(house_id);
+				// 调用查询
+				findHouseDetail(house_id);
+			})
+			
 		</script>
 		
 	</head>
@@ -466,8 +471,8 @@
 				</p>
 			</div>
 			<div class="nav">
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/login.html?__hbt=1526872925542"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button></a>
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/register0.html?__hbt=1526871625839"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button></a>
+				<button type="button" onclick="toLogin()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
+				<button type="button" onclick="toRegister()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
 			</div>
 			<!--<div class="fangyuanInfo">
 				<button class="layui-btn layui-btn-lg layui-btn-primary">房源信息</button>
@@ -494,7 +499,7 @@
 			<div class="part2">
 				<div class="price">
 					<div class="pric">
-						<p style="font-size: 24px;" id="prices"><span style="color: orange; font-size: 26px;" id="day_price"></span>日均</p>
+						<p style="font-size: 24px;" id="prices"><span style="color: orange; font-size: 26px;" id="day_price"></span>元/日均</p>
 					</div>
 					<div class="select">
 						<div class="search_rent">
@@ -509,7 +514,7 @@
 									</svg>
 									<tr>
 										<span style="font-size: 16px; font-weight: normal;"><br /><br />退房: </span>
-										<input type="text" class="span2" value="" id="dpd2" placeholder="请选择离开时间" style="font-weight: normal; line-height: 30px;">
+										<input type="text" class="span2" value="" id="dpd2" placeholder="请选择离开时间" onchange="calculTotalPrice();" style="font-weight: normal; line-height: 30px;">
 									</tr>
 									<svg class="icon1 " aria-hidden="true ">
 										<use xlink:href="#icon-rili "></use>
@@ -542,7 +547,7 @@
 							</div>
 							<div class="wrapper-demo ">
 								<div id="dd" class="wrapper-dropdown-3" tabindex="1 ">
-									<span>人数</span>
+									<span id="personNum">人数</span>
 									<ul class="dropdown" id="peopleNum">
 										<!-- 
 										<li><a href="# ">1人</a></li>
@@ -609,8 +614,9 @@
 							<div class="totalPrice ">
 								<p style="font-size: 20px; ">总计：<span style="color: lightblue;font-size: 22px; " id="totalPrice"></span></p>
 							</div>
-							<div class="button-order ">
-								<button style="height: 40px;width: 300px;background: ; ">立即预定</button>
+							<div class="button-order">
+								<span style="display:none;" id="house_id"></span>
+								<button type="button" onclick="toSubmit();" style="height: 40px;width: 300px;background: ; ">立即预定</button>
 							</div> 
 						</div>
 					</div>
@@ -936,7 +942,7 @@
 				</div>
 				<div class="xuzhi">
 					<h3>入住须知</h3>
-					<table>
+					<table style="margin-left:60px;">
 						<tr>
 							<td id="checkInTime"></td>
 							<td id="cleanPrice"></td>
@@ -963,7 +969,7 @@
 				</div>
 				<div class="shiyong">
 					<p style="font-size: 22px; font-weight: bolder;">房屋使用规则</p>
-					<p style="font-size: 14px;line-height: 30px;">* 请带好您的有效身份证件办理入住。<br>* 请爱护房间内设施和物品。<br>* 请勿将房间用于违法活动。</p>
+					<p style="font-size: 14px;line-height: 30px;margin-left:60px;">* 请带好您的有效身份证件办理入住。<br>* 请爱护房间内设施和物品。<br>* 请勿将房间用于违法活动。</p>
 				</div>
 				<div class="line">
 					<hr class="layui-bg-gray">
