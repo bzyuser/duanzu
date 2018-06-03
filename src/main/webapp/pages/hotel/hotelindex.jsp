@@ -269,7 +269,9 @@
 			#nav2 {
 				float:right;
 				margin-right:30px;
-	
+			}
+			.layui-nav .layui-nav-item a{
+				color:#989696;
 			}
 			#nav2 dl{
 				background:none;
@@ -317,7 +319,7 @@
 	</head>
 	<body>
 		<div class="header">
-			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px"/></div>
+			<div class="logo"><img onclick="toIndex();" style="cursor:pointer;" src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px"/></div>
 			<div class="name">
 				<p>
 					Keda短租
@@ -514,13 +516,11 @@
 			<div class="search_type">
 				<div class="layui-form-item" pane="">
 				    <div class="Select">
-				    	<table class="choice" style="line-height: 40px;">
+				    	<table class="choice" style="line-height: 40px;background:none;">
 					    	<tr id="choosePrice">
 					    		<td style="font-size: 22px; font-weight: normal;">价格:</td>
 					    		
-					    		<td>
-					    			<input type="radio" name="price" id="pri1" value=""/><label for="pri1" style="font-size: 20px;">不限</label>
-					    		</td>
+					    		
 					    		<td>
 					    			<input type="radio" name="price" id="pri2" value="0-100"/><label for="pri2" style="font-size: 20px;">100元以下</label>
 					    		</td>
@@ -550,9 +550,8 @@
 					    	<tr id="chooseHouseType">
 					    		<td style="font-size: 24px;font-weight: normal;">房型:</td>
 					    		
-					    		<td>
-					    			<input type="checkbox" name="houseType" id="houtyp1" value=""/><label for="houtyp1" style="font-size: 20px;">不限</label>
-					    		</td>
+					    		
+					    		
 					    		<td>
 					    			<input type="checkbox" name="houseType" id="houtyp2" value="公寓"/><label for="houtyp2" style="font-size: 20px;">公寓</label>
 					    		</td>
@@ -578,9 +577,7 @@
 					    	<tr id="choosetype">
 					    		<td style="font-size: 24px;font-weight: normal;">户型:</td>
 					    		
-					    		<td>
-					    			<input type="checkbox" name="rentType" id="typ1" value=""/><label for="typ1" style="font-size: 20px;">不限</label>
-					    		</td>
+					    		
 					    		<td>
 					    			<input type="checkbox" name="rentType" id="typ2" value="一居"/><label for="typ2" style="font-size: 20px;">一居</label>
 					    		</td>
@@ -601,9 +598,7 @@
 					    	<tr id="facilities">
 					    		<td style="font-size: 24px;font-weight: normal;">设施：</td>
 					    		
-					    		<td>
-					    			<input type="checkbox" name="facility" id="fac1" value=""/><label for="fac1" style="font-size: 20px;">不限</label>
-					    		</td>
+					    		
 					    		<td>
 					    			<input type="checkbox" name="facility" id="fac2" value="无线网络"/><label for="fac2" style="font-size: 20px;">无线网络</label>
 					    		</td>

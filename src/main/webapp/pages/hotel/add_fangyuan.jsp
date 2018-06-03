@@ -454,6 +454,19 @@ a:hover {
 	position: relative;
 	margin-top: 5px;
 }
+#nav2 {
+	float:right;
+	margin-right:30px;
+}
+.layui-nav .layui-nav-item a{
+	color:#989696;
+}
+#nav2 dl{
+	background:none;
+}
+#nav2 dd{
+	margin-top:10px;
+}
 </style>
 </head>
 <body>
@@ -461,21 +474,30 @@ a:hover {
 		<div class="logo">
 			<!-- //隐藏session中的值 -->
 			<input type="text" value="${userId}" id="sessionUserId" style="display:none;"></input>
-			<img src="../../images/hotel/logo.png" alt="logo" width="50px"
+			<img  onclick="toIndex();" style="cursor:pointer;" src="../../images/hotel/logo.png" alt="logo" width="50px"
 				height="50px" />
 		</div>
 		<div class="name">
 			<p>Keda短租</p>
 		</div>
-		<div class="nav">
-			<div class="tubiao">
-				<svg class="icon" aria-hidden="true ">
-						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
-					</svg>
+		
+		<div id="nav2">
+				<input type="hidden" id="session" value="${user.userId}"/>
+				<ul class="layui-nav" style="background:none;" style="display: none">
+					
+					<li class="layui-nav-item"><a>欢迎 ${user.userName}</a></li>	
+					<li class="layui-nav-item"><a>个人信息</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/zhanghuManager.jsp">修改信息</a>
+							</dd>
+							<dd>
+								<a onclick="exit();" style="cursor:pointer;">退出登录</a>
+							</dd>	
+						</dl>
+					</li>
+				</ul>
 			</div>
-			<span class="username">${user.userName}</span> 
-			<a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
-		</div>
 
 	</div>
 	<div class="banner">

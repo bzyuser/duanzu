@@ -172,11 +172,23 @@
 				border-radius: 5px;
 				outline: none;
 			}
+			#nav2 {
+				float:right;
+				margin-right:30px;
+			}
+			.layui-nav .layui-nav-item a{
+				color:#989696;
+			}
+			#nav2 dl{
+				background:none;
+			}
+			
+			
 		</style>
 	</head>
 	<body>
 		<div class="header">
-			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
+			<div class="logo"><img onclick="toIndex();" style="cursor:pointer;" src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
 			<div class="name">
 			
 			
@@ -189,14 +201,33 @@
 					Keda短租
 				</p>
 			</div>
-			<div class="nav">
-				<div class="tubiao">
-					<svg class="icon" aria-hidden="true ">
-						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
-					</svg>
-				</div>
-				<span class="username">${user.userName}</span>
-				<div class="exit"><a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a></div>
+			
+			<div id="nav2">
+				<input type="hidden" id="session" value="${user.userId}"/>
+				<ul class="layui-nav" style="background:none;" style="display: none">
+					
+					<li class="layui-nav-item"><a>欢迎 ${user.userName}</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/fangdongManager.jsp">我是房东</a>
+							</dd>
+							<dd>
+								<a href="/duanzu/pages/hotel/zukeManager.jsp">我是租客</a>
+							</dd>
+							
+						</dl>
+					</li>	
+					<li class="layui-nav-item"><a>个人信息</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="/duanzu/pages/hotel/zhanghuManager.jsp">修改信息</a>
+							</dd>
+							<dd>
+								<a onclick="exit();" style="cursor:pointer;">退出登录</a>
+							</dd>	
+						</dl>
+					</li>
+				</ul>
 			</div>
 			
 		</div>

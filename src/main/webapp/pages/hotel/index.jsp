@@ -355,7 +355,9 @@ a {
 #nav2 {
 	float:right;
 	margin-right:30px;
-	
+}
+.layui-nav .layui-nav-item a{
+	color:#989696;
 }
 #nav2 dl{
 	background:none;
