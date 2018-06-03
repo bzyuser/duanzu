@@ -20,6 +20,10 @@
 		<script src="../../js/hotel.js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../../js/hotel.js/select.js"></script>
 		<!--<script class="resources library" src="../../js/hotel.js/area.js" type="text/javascript"></script>-->
+		
+		<script type="text/javascript" src="../../js/js/zukeManager.js"></script>
+		
+		
 		<style>
 			.icon {
 				width: 1.8em;
@@ -190,6 +194,9 @@
 				font-size: 18px;
 				text-align: center;
 			}
+			.list-content td p{
+				font-size: 15px;
+			}
 			.state{
 				height: 20px;
 				width: 50px;
@@ -204,6 +211,9 @@
 		</style>
 	</head>
 	<body>
+	<!-- 从session获取租客id -->
+	<input type="hidden" id="user_id" value="1">
+	
 		<div class="header">
 			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
 			<div class="name">
@@ -237,6 +247,7 @@
 						<div class="detail">
 							<div class="order-list">
 								<table class="list-group">
+									<thead>
 									<tr class="list-title">
 										<td>订单号</td>
 										<td>房间</td>
@@ -255,17 +266,26 @@
 										<td>房东</td>
 										<td>
 											<div class="order0">
-										    	<select class="type00" value="订单状态">
-										    		<option value="1">所有订单 </option>
-										    		<option value="2">待付款</option>
-										    		<option value="3">待入住</option>
-										    		<option value="4">入住中</option>
-										    		<option value="5">取消</option>
+										    	<select class="type00" value="订单状态" id="orderStatus" onchange="searchOrderInfo();">
+										    		<option value="">所有订单 </option>
+										    		<option value="待付款">待付款</option>
+										    		<option value="待入住">待入住</option>
+										    		<option value="入住中">入住中</option>
+										    		<option value="取消">取消</option>
 										    	</select>
 										    </div>
 										</td>
 										<td>操作</td>
 									</tr>
+									</thead>
+									
+									<tbody id="zuKeOrderInfo">
+									
+									</tbody>
+									
+									
+									<!-- 
+									
 									<tr class="list-content">
 										<td>63635624</td>
 										<td><p style="text-align: left;color: lightblue;">高级公寓 好友小聚休闲度假全家出游</p><p style="text-align: left;color: lightgray;">北京昌平区北七家王府公寓（温都水城，王府中西医）</p></td>
@@ -293,6 +313,10 @@
 										<td><div class="state">取消</div></td>
 										<td><div class="delete"><a href="#">删除</a></div></td>
 									</tr>
+									
+									 -->
+									
+									
 								</table>
 							</div>
 						</div>
@@ -322,5 +346,7 @@
 			  	</div>
 			</div> 
 		</div>
+		
+		
 	</body>
 </html>

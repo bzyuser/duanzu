@@ -1,5 +1,7 @@
 <%@page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8" %>
 <%@include file="/tag.jsp" %>
+<%@ page import="java.util.*" %>
+<%@ page import="java.net.URLDecoder" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -27,6 +29,10 @@
 	    <script src="../../js/hotel.js/bootstrap.min.js"></script>
 	    <!--<script src="http://www.jq22.com/jquery/jquery-1.9.1.js"></script>-->
 	    <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+	    
+	    <script src="../../js/js/index_login_register.js"></script>
+	    <script type="text/javascript" src="../../js/js/hotelIndex.js"></script>
+	    
 	    <style>
 	    	/************************************阿里巴巴图标库的引入*******************************/
 	    	.icon {
@@ -172,13 +178,13 @@
 	    		margin-left: 78px;
 	    	}
 	    	.main{
-	    		height: 3400px;
+	    		height: 1600px;
 	    		width: 1366px;
 	    		background: lightgoldenrodyellow;
 	    		margin-top: 10px;
 	    	}
 	    	.main_box{
-	    		height: 3350px;
+	    		height: 1600px;
 	    		width: 1250px;
 	    		background: white;
 	    		float: left;
@@ -240,8 +246,7 @@
 	    		font-size: 24px;
 	    		font-weight: bolder;
 	    	}
-			#demo4{
-	    		float: left;
+			#pageDiv{
 	    		margin-left: 490px;
 	    	}
 			.footer{
@@ -253,7 +258,47 @@
 				/*margin-left: 50px;*/
 				margin-top: 50px;
 			}
+			#sousuoAnNiu{
+				width:100px;
+			}
+			#sousuoAnNiu:hover{
+				color:yellow;
+			}
 	  </style>
+	  <script type="text/javascript">
+	  		// 获取get参数
+	  		var city_name;
+	  		var preset_start_time;
+	  		var preset_end_time;
+	  		$(function(){
+	  			<%
+	  				String city_name = request.getParameter("city_name");
+	  					if(city_name!=null){
+	  						city_name = URLDecoder.decode(city_name, "utf-8");
+	  					}
+	  				String preset_start_time = request.getParameter("preset_start_time");
+	  				String preset_end_time = request.getParameter("preset_end_time");
+	  			%>
+	  			city_name = "<%=city_name%>";
+	  			preset_start_time = "<%=preset_start_time%>";
+	  			preset_end_time = "<%=preset_end_time%>";		
+	  			
+	  			// 非空则赋值
+	  			if(city_name!=null && city_name!=""){
+	  				$("#cityGoal").val(city_name);
+	  			}
+				if(preset_start_time!=null&&preset_start_time!=""){
+					$("#dpd1").val(preset_start_time);
+	  			}
+				if(preset_end_time!=null&&preset_end_time!=""){
+					$("#dpd2").val(preset_end_time);
+				}
+				// 页面加载时根据条件查询
+				searchDuanzuInfo();
+	  			
+	  		})
+	  		
+	  </script>
 	</head>
 	<body>
 		<div class="header">
@@ -264,14 +309,14 @@
 				</p>
 			</div>
 			<div class="nav">
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/login.html?__hbt=1526888466383"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button></a>
-				<a href="http://127.0.0.1:8020/X-admin2/pages/hotel/register0.html?__hbt=1526888525773"><button class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button></a>
+				<button type="button" onclick="toLogin()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">登录</button>
+				<button type="button" onclick="toRegister()" class="layui-btn layui-btn-lg layui-btn-primary layui-btn-radius">注册</button>
 			</div>
 		</div>
 		<div class="banner">
 			<div class="search_rent">
 				<div class="search_city">
-					<span style="font-size: 16px;">目的地:</span><input type="text" class="search" placeholder="请选择目的地">
+					<span style="font-size: 16px;">目的地:</span><input id="cityGoal" type="text" class="search" placeholder="请选择目的地">
 					<script>
 						$('.search').kuCity();
 					</script>
@@ -289,6 +334,7 @@
 							</tr>
 						</thead>
 					</table>
+					
 					<script>
 						var nowTemp = new Date();
 						var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
@@ -315,6 +361,10 @@
 					</script>
 				</div>
 				<div class="wrapper-demo">
+					
+					<input type="button" id="sousuoAnNiu" class="wrapper-dropdown-3" onclick="searchDuanzuInfo();" value="搜&nbsp;索"/>
+					
+					<!-- 
 					<div id="dd" class="wrapper-dropdown-3" tabindex="1">
 					
 						<span>人数</span>
@@ -350,8 +400,9 @@
 								<a href="#">10人及以上</a>
 							</li>
 						</ul>
-						
+					
 					</div>
+					 -->
 				
 				<script type="text/javascript">
 					function DropDown(el) {
@@ -400,6 +451,18 @@
 				
 			</div>
 			
+			
+			<form id="findCondition" action="" method="post">
+				
+				<!-- 隐藏查询条件 -->
+				<input type="hidden" name="city_name" id="city_name"/>
+				<input type="hidden" name="preset_start_time" id="preset_start_time"/>
+				<input type="hidden" name="preset_end_time" id="preset_end_time"/>
+				
+				<!-- 隐藏分页信息 -->
+				<input type="hidden" name="pageNum">
+				<input type="hidden" name="pageSize">
+				
 			<div class="search_type">
 				<div class="layui-form-item" pane="">
 				    <div class="Select">
@@ -408,23 +471,23 @@
 					    		<td style="font-size: 22px; font-weight: normal;">价格:</td>
 					    		
 					    		<td>
-					    			<input type="radio" name="price" id="pri1"/><label for="pri1" style="font-size: 20px;">不限</label>
+					    			<input type="radio" name="price" id="pri1" value=""/><label for="pri1" style="font-size: 20px;">不限</label>
 					    		</td>
 					    		<td>
-					    			<input type="radio" name="price" id="pri2"/><label for="pri2" style="font-size: 20px;">100元以下</label>
+					    			<input type="radio" name="price" id="pri2" value="0-100"/><label for="pri2" style="font-size: 20px;">100元以下</label>
 					    		</td>
 					    		<td>
 
-					      			<input type="radio" name="price" id="pri3"/><label for="pri3" style="font-size: 20px;">101-200元</label>
+					      			<input type="radio" name="price" id="pri3" value="101-200"/><label for="pri3" style="font-size: 20px;">101-200元</label>
 					    		</td>
 					    		<td>
-					      			<input type="radio" name="price" id="pri4"/><label for="pri4" style="font-size: 20px;">201-300元</label>
+					      			<input type="radio" name="price" id="pri4" value="201-300"/><label for="pri4" style="font-size: 20px;">201-300元</label>
 					    		</td>
 					    		<td>
-					      			<input type="radio" name="price" id="pri5"/><label for="pri5" style="font-size: 20px;">301-500元</label>
+					      			<input type="radio" name="price" id="pri5" value="301-500"/><label for="pri5" style="font-size: 20px;">301-500元</label>
 					    		</td>
 					    		<td>
-					      			<input type="radio" name="price" id="pri6"/><label for="pri6" style="font-size: 20px;">500元以上</label>
+					      			<input type="radio" name="price" id="pri6" value="500-*"/><label for="pri6" style="font-size: 20px;">500元以上</label>
 					    		</td>
 					    		<td colspan="3">
 									<div class="price-box-min">
@@ -440,84 +503,79 @@
 					    		<td style="font-size: 24px;font-weight: normal;">房型:</td>
 					    		
 					    		<td>
-					    			<input type="checkbox" name="houseType" id="houtyp1"/><label for="houtyp1" style="font-size: 20px;">不限</label>
+					    			<input type="checkbox" name="houseType" id="houtyp1" value=""/><label for="houtyp1" style="font-size: 20px;">不限</label>
 					    		</td>
 					    		<td>
-					    			<input type="checkbox" name="houseType" id="houtyp2"/><label for="houtyp2" style="font-size: 20px;">公寓</label>
+					    			<input type="checkbox" name="houseType" id="houtyp2" value="公寓"/><label for="houtyp2" style="font-size: 20px;">公寓</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp3"/><label for="houtyp3" style="font-size: 20px;">民宿</label>
+					      			<input type="checkbox" name="houseType" id="houtyp3" value="民宿"/><label for="houtyp3" style="font-size: 20px;">民宿</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp4"/><label for="houtyp4" style="font-size: 20px;">旅馆</label>
+					      			<input type="checkbox" name="houseType" id="houtyp4" value="旅馆"/><label for="houtyp4" style="font-size: 20px;">旅馆</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp5"/><label for="houtyp5" style="font-size: 20px;">别墅</label>
+					      			<input type="checkbox" name="houseType" id="houtyp5" value="别墅"/><label for="houtyp5" style="font-size: 20px;">别墅</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp6"/><label for="houtyp6" style="font-size: 20px;">活动场地</label>
+					      			<input type="checkbox" name="houseType" id="houtyp6" value="活动场地"/><label for="houtyp6" style="font-size: 20px;">活动场地</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp7"/><label for="houtyp7" style="font-size: 20px;">农家院</label>
+					      			<input type="checkbox" name="houseType" id="houtyp7" value="农家院"/><label for="houtyp7" style="font-size: 20px;">农家院</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="houseType" id="houtyp8"/><label for="houtyp8" style="font-size: 20px;">客栈</label>
+					      			<input type="checkbox" name="houseType" id="houtyp8" value="客栈"/><label for="houtyp8" style="font-size: 20px;">客栈</label>
 					    		</td>
 					    	</tr>
 					    	<tr id="choosetype">
 					    		<td style="font-size: 24px;font-weight: normal;">户型:</td>
 					    		
 					    		<td>
-					    			<input type="checkbox" name="rentType" id="typ1"/><label for="typ1" style="font-size: 20px;">不限</label>
+					    			<input type="checkbox" name="rentType" id="typ1" value=""/><label for="typ1" style="font-size: 20px;">不限</label>
 					    		</td>
 					    		<td>
-					    			<input type="checkbox" name="rentType" id="typ2"/><label for="typ2" style="font-size: 20px;">一居</label>
+					    			<input type="checkbox" name="rentType" id="typ2" value="一居"/><label for="typ2" style="font-size: 20px;">一居</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="rentType" id="typ3"/><label for="typ3" style="font-size: 20px;">二居</label>
+					      			<input type="checkbox" name="rentType" id="typ3" value="二居"/><label for="typ3" style="font-size: 20px;">二居</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="rentType" id="typ4"/><label for="typ4" style="font-size: 20px;">三居</label>
+					      			<input type="checkbox" name="rentType" id="typ4" value="三居"/><label for="typ4" style="font-size: 20px;">三居</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="rentType" id="typ5"/><label for="typ5" style="font-size: 20px;">四居</label>
+					      			<input type="checkbox" name="rentType" id="typ5" value="四居"/><label for="typ5" style="font-size: 20px;">四居</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="rentType" id="typ6"/><label for="typ6" style="font-size: 20px;">四居及以上</label>
+					      			<input type="checkbox" name="rentType" id="typ6" value="四居以上"/><label for="typ6" style="font-size: 20px;">四居以上</label>
 					    		</td>
-					    		<!--<td>
-					      			<input type="checkbox" name="rentType" id="typ7"/><label for="typ7" style="font-size: 20px;">整套出租</label>
-					    		</td>
-					    		<td>
-					      			<input type="checkbox" name="rentType" id="typ8"/><label for="typ8" style="font-size: 20px;">单间出租</label>
-					    		</td>-->
+					    		
 					    	</tr>
 					    	<tr id="facilities">
 					    		<td style="font-size: 24px;font-weight: normal;">设施：</td>
 					    		
 					    		<td>
-					    			<input type="checkbox" name="facility" id="fac1"/><label for="fac1" style="font-size: 20px;">不限</label>
+					    			<input type="checkbox" name="facility" id="fac1" value=""/><label for="fac1" style="font-size: 20px;">不限</label>
 					    		</td>
 					    		<td>
-					    			<input type="checkbox" name="facility" id="fac2"/><label for="fac2" style="font-size: 20px;">无线网络</label>
+					    			<input type="checkbox" name="facility" id="fac2" value="无线网络"/><label for="fac2" style="font-size: 20px;">无线网络</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac3"/><label for="fac3" style="font-size: 20px;">电视</label>
+					      			<input type="checkbox" name="facility" id="fac3" value="电视"/><label for="fac3" style="font-size: 20px;">电视</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac4"/><label for="fac4" style="font-size: 20px;">淋浴</label>
+					      			<input type="checkbox" name="facility" id="fac4" value="淋浴"/><label for="fac4" style="font-size: 20px;">淋浴</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac5"/><label for="fac5" style="font-size: 20px;">空调</label>
+					      			<input type="checkbox" name="facility" id="fac5" value="空调"/><label for="fac5" style="font-size: 20px;">空调</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac6"/><label for="fac6" style="font-size: 20px;">暖气</label>
+					      			<input type="checkbox" name="facility" id="fac6" value="暖气"/><label for="fac6" style="font-size: 20px;">暖气</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac7"/><label for="fac7" style="font-size: 20px;">厨房</label>
+					      			<input type="checkbox" name="facility" id="fac7" value="厨房"/><label for="fac7" style="font-size: 20px;">厨房</label>
 					    		</td>
 					    		<td>
-					      			<input type="checkbox" name="facility" id="fac8"/><label for="fac8" style="font-size: 20px;">24h热水</label>
+					      			<input type="checkbox" name="facility" id="fac8" value="24h热水"/><label for="fac8" style="font-size: 20px;">24h热水</label>
 					    		</td>
 					    	</tr>
 					    </table>
@@ -525,6 +583,11 @@
 				    
 				</div>
 			</div>
+			
+			</form>
+			
+			
+			
 		</div>
 		<div class="main">
 			<div class="main_box">
@@ -535,7 +598,11 @@
 				<div class="line">
 					<hr class="layui-bg-gray">
 				</div>
-				<div class="main_picture">
+				<div class="main_picture" id="dispalyInfo">
+				
+				
+				<!-- 
+				
 					<div class="hotel">
 						<div class="hotel-pic"><img src="../../images/hotel/3.jpg" alt="短租房间图片" height="240px" width="360px"></div>
 						<div class="hotel-info">
@@ -557,9 +624,15 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="line">
 						<hr class="layui-bg-darkgray">
 					</div>
+					
+					
+					
+					
+					
 					<div class="hotel">
 						<div class="hotel-pic"><img src="../../images/hotel/3.jpg" alt="短租房间图片" height="240px" width="360px"></div>
 						<div class="hotel-info">
@@ -741,21 +814,12 @@
 						});
 					</script>
 
+					-->
+
 				</div>
 				
 			</div>
-			<div id="demo4"></div>
-				<script>
-					layui.use(['laypage', 'layer'], function(){
-						var laypage = layui.laypage,layer = layui.layer;
-							laypage.render({
-							elem: 'demo4'
-							,count: 100
-							,first: false
-							,last: false
-							});
-					});
-				</script>
+			<div id="pageDiv"></div>
 		</div>
 		<div class="footer">
 			<p style="text-align: center;">许可证号：晋ICP证180509号    安全联盟   太原科大信息科技有限公司</p>

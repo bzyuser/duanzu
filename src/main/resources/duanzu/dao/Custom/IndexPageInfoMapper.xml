@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.IndexPageInfoMapper" >
+	
+	<!-- 查询热门城市信息 -->
+	<select id="findIndexCityInfo" resultType="map">
+		select 
+			c.city_id,
+			c.city_num,
+			c.city_name,
+			c.hot_level,
+			c.feature,
+			cu.city_picture_url_id,
+			cu.picture_name,
+			cu.picture_url,
+			cu.pic_desc
+		from
+			city c
+			join city_picture_url cu
+			on c.city_id = cu.city_id
+			
+	</select>
+	
+	<!-- 查询短租推荐 -->
+	<select id="findIndexDuanzuInfo" parameterType="String"  resultType="map">
+		select
+			hu.house_id,
+			hu.picture_url,
+			hi.house_name,
+			hi.house_desc,
+			hi.address
+		from 
+			house_base_info hi
+			join house_picture_url hu
+			on hi.house_id = hu.house_id
+		 where 
+		 	hu.picture_type = #{picture_type}
+		 ORDER BY
+		 	 hi.hot_level DESC
+	</select>
+	
+	<!-- 修改房屋热度等级 -->
+	<update id="updateHuseHotLevel" parameterType="String">
+		update
+			house_base_info
+		  set
+		  	hot_level = hot_level+1
+		  where
+		  	house_id = #{house_id}
+	</update>
+	
+	
+</mapper>

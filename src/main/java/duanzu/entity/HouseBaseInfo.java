@@ -33,6 +33,8 @@ public class HouseBaseInfo {
 
     private String status;
 
+    private String time;
+
     private String remark;
 
     public String getHouseId() {
@@ -161,6 +163,14 @@ public class HouseBaseInfo {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time == null ? null : time.trim();
     }
 
     public String getRemark() {

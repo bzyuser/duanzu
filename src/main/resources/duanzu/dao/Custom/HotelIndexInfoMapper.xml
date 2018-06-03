@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.HotelIndexInfoMapper" >
+
+	<!-- 查询城市短租信息 -->
+	<select id="findCityDuanzuInfo" parameterType="map" resultType="map">
+		select 
+			hu.house_id,
+			hu.picture_url,
+			hb.city_id,
+			hb.house_name,
+			hb.rent_out_type,
+			hb.house_type,
+			hb.home_type,
+			hb.price,
+			hb.house_desc,
+			hd.available_people_num,
+			hd.home_num,
+			hf.real_name,
+			hf.sex,
+			hf.phone
+		from
+			house_base_info hb
+			join house_picture_url hu
+				on hb.house_id = hu.house_id
+			join house_detail_info hd
+				on hd.house_id = hb.house_id
+			join host_family_info hf
+				on hf.host_family_id = hb.host_family_id
+			join city c
+				on c.city_id = hb.city_id
+		<where>
+			 
+			<if test="house_type_Array!=null and house_type_Array!=''">
+				( 
+					<foreach collection="house_type_Array" item="house_type" separator=" or ">
+						hb.house_type = #{house_type }
+					</foreach>
+					)
+			</if>
+			<if test="home_type_Array!=null and home_type_Array!=''">
+				and (  
+					<foreach collection="home_type_Array" item="home_type" separator=" or ">
+						hb.home_type = #{home_type }
+					</foreach>
+					)
+			</if>
+			<if test="price_min!=null and price_min!=''">
+				and hb.price >= #{price_min}
+			</if>
+			<if test="price_max!=null and price_max!=''">
+				and #{price_max} >= hb.price
+			</if>
+			 
+			<if test="facility_Array!=null and facility_Array!=''">
+				and 
+				<foreach collection="facility_Array"  item="facility"  separator=" and ">
+					hb.facility LIKE CONCAT("%",#{facility},"%" )
+				</foreach>
+				
+			</if>	
+			<if test="city_name!=null and city_name!=''">
+				and c.city_name = #{city_name}
+			</if>
+		</where>
+			
+	</select>
+	
+	<!-- 查询入住，退房时间 -->
+	<select id="findHousePreSetTimeInfo" parameterType="String" resultType="map">
+		select 
+			house_id,
+			preset_start_time,
+			preset_end_time
+		from
+			check_in_out_time_arrange
+		where
+			house_id = #{house_id}
+	</select>
+
+</mapper>

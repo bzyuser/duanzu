@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="duanzu.dao.Custom.ZuKeOrderInfoMapper">
+	
+	<!-- 租客增加订单(订单管理) -->
+	<insert id="addZuKeOrderManage" parameterType="map">
+		insert into 
+			order_manage
+			(order_id,house_id,user_id,order_detail_id)
+			values
+			(#{order_id},#{house_id},#{user_id},#{order_detail_id})
+	</insert>
+	
+	<!-- 增加订单详细信息 -->
+	<insert id="addZuKeOrderDetail" parameterType="map">
+		insert into 
+			order_detail
+			(order_detail_id,order_id,check_in_time,
+			check_out_time,check_in_days,check_in_people_num,
+			total_price,name,id_card,phone,status)
+			values
+			(#{order_detail_id},#{order_id},#{check_in_time},#{check_out_time},
+			#{check_in_days},#{check_in_people_num},
+			#{total_price},#{name},#{id_card},#{phone},#{status})
+	</insert>
+	
+	<!-- 增加同住人信息订单 -->
+	<insert id="addZuKeTenantInfo" parameterType="map">
+		insert into
+			tenant_info
+			(tenant_id,order_detail_id,name,sex,id_card,phone,remark)
+			values
+			(#{tenant_id},#{order_detail_id},#{name},#{sex},#{id_card},#{phone},#{remark})
+	</insert>
+	
+	<!-- 在房屋时间表中添加信息 -->
+	<insert id="addHouseInOutArrangeInfo" parameterType="map">
+		insert into
+			check_in_out_time_arrange
+			(time_id,house_id,order_id,preset_start_time,preset_end_time)
+			values
+			(#{time_id},#{house_id},#{order_id},#{preset_start_time},#{preset_end_time})
+	</insert>
+	
+	
+</mapper>
