@@ -27,7 +27,6 @@ function submitOrder(){
 }
 
 
-
 // 动态加载页面数据及布局
 function showContent(){
 	var startTime = $("#startTime").text();

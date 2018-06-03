@@ -339,10 +339,10 @@
 					<input type="hidden" name="check_in_days" id="check_in_days" value="">
 					<input type="hidden" name="check_in_people_num" value="${param.personNum }">
 					<input type="hidden" name="total_price" id="total_price" value="">
-					<input type="hidden" name="user_id" value="">
-					<input type="hidden" name="name" value="">
-					<input type="hidden" name="id_card" value="">
-					<input type="hidden" name="phone" value="">
+					<input type="hidden" name="user_id" value="${userId }">
+					<input type="hidden" name="name" value="${user.name }">
+					<input type="hidden" name="id_card" value="${user.remark }">
+					<input type="hidden" name="phone" value="${user.phone }">
 					<input type="hidden" name="status" value="待入住">
 				</form>
 				
