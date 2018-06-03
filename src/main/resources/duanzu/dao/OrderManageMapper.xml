@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="duanzu.dao.OrderManageMapper" >
   <resultMap id="BaseResultMap" type="duanzu.entity.OrderManage" >
-    <id column="order_id" property="orderId" jdbcType="VARCHAR" />
-    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <id column="order_num" property="orderNum" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="house_id" property="houseId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="order_detail_id" property="orderDetailId" jdbcType="VARCHAR" />
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, order_num, house_id, user_id, order_detail_id
+    order_num, order_id, house_id, user_id, order_detail_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.OrderManageExample" >
     select
@@ -83,15 +83,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from order_manage
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_num = #{orderNum,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from order_manage
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_num = #{orderNum,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="duanzu.entity.OrderManageExample" >
     delete from order_manage
@@ -100,19 +100,19 @@
     </if>
   </delete>
   <insert id="insert" parameterType="duanzu.entity.OrderManage" >
-    insert into order_manage (order_id, order_num, house_id, 
+    insert into order_manage (order_num, order_id, house_id, 
       user_id, order_detail_id)
-    values (#{orderId,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
+    values (#{orderNum,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
       #{userId,jdbcType=VARCHAR}, #{orderDetailId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="duanzu.entity.OrderManage" >
     insert into order_manage
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
-      </if>
       <if test="orderNum != null" >
         order_num,
+      </if>
+      <if test="orderId != null" >
+        order_id,
       </if>
       <if test="houseId != null" >
         house_id,
@@ -125,11 +125,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="orderNum != null" >
-        #{orderNum,jdbcType=VARCHAR},
       </if>
       <if test="houseId != null" >
         #{houseId,jdbcType=VARCHAR},
@@ -151,11 +151,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update order_manage
     <set >
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=INTEGER},
+      </if>
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.orderNum != null" >
-        order_num = #{record.orderNum,jdbcType=VARCHAR},
       </if>
       <if test="record.houseId != null" >
         house_id = #{record.houseId,jdbcType=VARCHAR},
@@ -173,8 +173,8 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update order_manage
-    set order_id = #{record.orderId,jdbcType=VARCHAR},
-      order_num = #{record.orderNum,jdbcType=VARCHAR},
+    set order_num = #{record.orderNum,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
       house_id = #{record.houseId,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       order_detail_id = #{record.orderDetailId,jdbcType=VARCHAR}
@@ -185,8 +185,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="duanzu.entity.OrderManage" >
     update order_manage
     <set >
-      <if test="orderNum != null" >
-        order_num = #{orderNum,jdbcType=VARCHAR},
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="houseId != null" >
         house_id = #{houseId,jdbcType=VARCHAR},
@@ -198,14 +198,14 @@
         order_detail_id = #{orderDetailId,jdbcType=VARCHAR},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_num = #{orderNum,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="duanzu.entity.OrderManage" >
     update order_manage
-    set order_num = #{orderNum,jdbcType=VARCHAR},
+    set order_id = #{orderId,jdbcType=VARCHAR},
       house_id = #{houseId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       order_detail_id = #{orderDetailId,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=VARCHAR}
+    where order_num = #{orderNum,jdbcType=INTEGER}
   </update>
 </mapper>

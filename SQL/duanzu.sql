@@ -110,6 +110,7 @@ CREATE TABLE house_base_info
    other                VARCHAR(500)                   NULL,
    hot_level            VARCHAR(10)                    NULL,
    STATUS               VARCHAR(10)                    NULL,
+   time               VARCHAR(20)                    NULL,
    remark               VARCHAR(40)                    NULL,
    CONSTRAINT PK_HOUSE_BASE_INFO PRIMARY KEY clustered (house_id)
 );
@@ -230,4 +231,5 @@ CREATE TABLE user_table
    remark               VARCHAR(40)                    NULL,
    CONSTRAINT PK_USER_TABLE PRIMARY KEY clustered (user_id)
 );
-
+ALTER TABLE `duanzu`.`user_table`     ADD COLUMN `name` VARCHAR(15) NULL AFTER `user_id`,     ADD COLUMN `birth` VARCHAR(15) NULL AFTER `name`,     ADD COLUMN `sex` VARCHAR(5) NULL AFTER `birth`;
+ALTER TABLE `duanzu`.`order_manage`     CHANGE `order_id` `order_id` VARCHAR(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,     CHANGE `order_num` `order_num` INT(10) NOT NULL AUTO_INCREMENT,    DROP PRIMARY KEY,     ADD PRIMARY KEY(`order_num`);

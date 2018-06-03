@@ -1,5 +1,7 @@
 package duanzu.entity;
 
+import java.util.List;
+
 public class HouseBaseInfo {
     private String houseId;
 
@@ -34,10 +36,33 @@ public class HouseBaseInfo {
     private String status;
 
     private String time;
+    
+    private HouseDetailInfo detailInfo;
+    
+    private List<HousePictureUrl> pictures;
 
     private String remark;
+    
+    
+    
+    
+    public HouseDetailInfo getDetailInfo() {
+		return detailInfo;
+	}
 
-    public String getHouseId() {
+	public void setDetailInfo(HouseDetailInfo detailInfo) {
+		this.detailInfo = detailInfo;
+	}
+
+	public List<HousePictureUrl> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<HousePictureUrl> pictures) {
+		this.pictures = pictures;
+	}
+
+	public String getHouseId() {
         return houseId;
     }
 

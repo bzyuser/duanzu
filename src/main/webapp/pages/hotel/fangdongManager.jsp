@@ -127,7 +127,7 @@ a:hover {
 
 .mimaInfo, .detailInfo, .fangjianInfo {
 	width: 1250px;
-	height: 800px;
+	
 	background: white;
 	float: left;
 	margin-top: 5px;
@@ -419,8 +419,10 @@ select {
 						<div class="kuai"></div>
 						<div class="text1" style="font-size: 25px;">全部房源</div>
 						<div class="line"></div>
-						<div class="mima">
-							<div class="box3">
+						<div class="mima" id="mima1">
+							
+							
+							<!--<div class="box3">
 								<div class="left">
 									<div class="picture"></div>
 									<div class="text">
@@ -453,24 +455,7 @@ select {
 								<div class="right">
 									<button class="button">删除房源</button>
 								</div>
-							</div>
-							<div class="box3">
-								<div class="left">
-									<div class="picture"></div>
-									<div class="text">
-										<p style="text-align: center;">2018年5月20日发布</p>
-										<p style="text-align: center;">房间编号： 323763</p>
-									</div>
-								</div>
-								<div class="middle">
-									<a href="#"><h2>你好欢迎光临</h2></a>
-									<p>万柏林区窊流路66号太原科技大学，千峰街道</p>
-									<p style="color: lightgray">* 2室 3卫，120平 共1套</p>
-								</div>
-								<div class="right">
-									<button class="button">删除房源</button>
-								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>

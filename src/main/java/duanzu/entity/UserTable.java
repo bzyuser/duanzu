@@ -3,6 +3,12 @@ package duanzu.entity;
 public class UserTable {
     private String userId;
 
+    private String name;
+
+    private String birth;
+
+    private String sex;
+
     private String userName;
 
     private String phone;
@@ -19,6 +25,30 @@ public class UserTable {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
+    public String getBirth() {
+        return birth;
+    }
+
+    public void setBirth(String birth) {
+        this.birth = birth == null ? null : birth.trim();
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex == null ? null : sex.trim();
     }
 
     public String getUserName() {
