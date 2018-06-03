@@ -26,7 +26,7 @@
 <!--<script class="resources library" src="../../js/hotel.js/area.js" type="text/javascript"></script>-->
 
 <script type="text/javascript" src="../../js/js/fangdongManager.js"></script>
-
+<script type="text/javascript" src="../../js/js/util.js"></script>
 <style>
 .icon {
 	width: 1.8em;
@@ -315,7 +315,7 @@ select {
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 			</div>
-			<span class="username">${user.name}</span>
+			<span class="username">${user.userName}</span>
 			<div class="exit">
 				<a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
 			</div>

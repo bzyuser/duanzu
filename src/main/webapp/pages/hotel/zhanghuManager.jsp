@@ -195,7 +195,7 @@
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 				</div>
-				<span class="username">${user.name}</span>
+				<span class="username">${user.userName}</span>
 				<div class="exit"><a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a></div>
 			</div>
 			

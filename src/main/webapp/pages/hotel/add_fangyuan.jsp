@@ -473,7 +473,8 @@ a:hover {
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 			</div>
-			<span class="username">${user.name}</span> <a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
+			<span class="username">${user.userName}</span> 
+			<a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
 		</div>
 
 	</div>
