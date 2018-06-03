@@ -23,7 +23,7 @@
 		
 		
 		<script type="text/javascript" src="../../js/js/zhanghuManager.js"></script>
-		
+		<script type="text/javascript" src="../../js/js/util.js"></script>
 		<style>
 			.icon {
 				width: 1.8em;
@@ -178,6 +178,13 @@
 		<div class="header">
 			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
 			<div class="name">
+			
+			
+			<!-- //隐藏session中的值 -->
+			<input type="text" value="${userId}" id="sessionUserId" style="display:none;"></input>
+			
+			
+			
 				<p>
 					Keda短租
 				</p>
@@ -188,8 +195,8 @@
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 				</div>
-				<span class="username">Hi,陈洁</span>
-				<div class="exit"><a href="#">退出登录</a></div>
+				<span class="username">${user.name}</span>
+				<div class="exit"><a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a></div>
 			</div>
 			
 		</div>

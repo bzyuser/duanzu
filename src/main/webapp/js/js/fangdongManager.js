@@ -1,6 +1,7 @@
-var userId = 1;
+var userId = null;
 //页面加载执行查询房东基本信息
 $(function(){
+	userId = $("#sessionUserId").val();
 	loadhostinfo(userId);
 	loadhosthouseinfo(userId);
 	loadhostorderInfo();

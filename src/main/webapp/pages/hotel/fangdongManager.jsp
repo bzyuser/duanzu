@@ -111,7 +111,7 @@ a {
 .exit {
 	float: left;
 	margin-left: 20px;
-	font-size: 18px;
+	font-size: 20px;
 }
 
 a:hover {
@@ -298,6 +298,13 @@ select {
 		<div class="logo">
 			<img src="../../images/hotel/logo.png" alt="logo" width="50px"
 				height="50px" />
+			
+			
+				
+				<!-- //隐藏session中的值 -->
+			<input type="text" value="${userId}" id="sessionUserId" style="display:none;"></input>
+			
+			
 		</div>
 		<div class="name">
 			<p>Keda短租</p>
@@ -308,9 +315,9 @@ select {
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 			</div>
-			<span class="username">Hi,陈洁</span>
+			<span class="username">${user.name}</span>
 			<div class="exit">
-				<a href="#">退出登录</a>
+				<a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
 			</div>
 		</div>
 

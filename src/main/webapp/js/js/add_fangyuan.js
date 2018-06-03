@@ -1,5 +1,8 @@
-var userId = 1;
+var userId = null;
 $(function(){
+	userId = $("#sessionUserId").val();
+	//alert(userId);
+	
 	loadhostinfo();
 })
 //添加房源
@@ -42,7 +45,7 @@ function loadhostinfo(){
 	var layer;
 	layui.use('layer',function(){
 		layer = layui.layer;
-	});
+	
 	$.ajax({
 		url:contextPath+"/pages/hotel/fangdongManager/loadhostinfo.do",
 		type:"post",
@@ -59,10 +62,13 @@ function loadhostinfo(){
 				$("#userinforemark").val(msg.remark1);
 			} else{
 				layer.msg("请先完善个人详细信息");
+				//隐藏发布按钮
+				$("#submit").css("display","none");
 			}
 		},
 		error:function(){
 			layer.msg("加载信息出错");
 		}
 	})
+	});
 }
