@@ -31,7 +31,7 @@ public class RegisterController {
 		userInfo.setUserName(name);
 		userInfo.setPhone(phone);
 		userInfo.setEmail(email);
-		userInfo.setPassword(NoteUtil.md5(password));
+		userInfo.setPassword(password);
 		try {
 			map = registerService.register(userInfo);
 		} catch (SQLException e) {

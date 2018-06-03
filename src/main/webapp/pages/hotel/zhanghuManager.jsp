@@ -19,7 +19,11 @@
 		<script type="text/javascript" src="../../iconfont/iconfont.js"></script>
 		<script src="../../js/hotel.js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../../js/hotel.js/select.js"></script>
-		<!--<script class="resources library" src="../../js/hotel.js/area.js" type="text/javascript"></script>-->
+		
+		
+		
+		<script type="text/javascript" src="../../js/js/zhanghuManager.js"></script>
+		
 		<style>
 			.icon {
 				width: 1.8em;
@@ -198,6 +202,9 @@
 			  	<div class="layui-tab-content" style="height: 100px;">
 			    <div class="layui-tab-item layui-show">
 			    	<div class="detailInfo">
+			    	<!-- 隐藏密码框 -->
+			    	<input type="text" style="display:none" id="password"/>
+			    	
 						<div class="kuai"></div>
 						<div class="text1" style="font-size: 25px;">详细信息</div>
 						<div class="line"></div>
@@ -205,16 +212,16 @@
 							<div class="box1">
 								<div class="text2"><p style="font-size: 20px;">姓名：</p></div>
 								<div class="shurukuang">
-								    <input type="text" class="form-control"/>
+								    <input type="text" class="form-control" id="userName"/>
 								</div>
 							</div>
 							<div class="box1">
 								<div class="text2"><p style="font-size: 18px;">性别：</p></div>
 							    <div class="shurukuang">
 							    	<table class="choosesex">
-							    		<tr>
-							    			<td style="width:100px;text-align: center;"><input type="radio" name="toilet" id="pri1"/><label for="pri1" style="font-size: 20px;">男</label></td>
-							    			<td style="width:100px;text-align: center;"><input type="radio" name="toilet" id="pri2"/><label for="pri2" style="font-size: 20px;">女</label></td>
+							    		<tr class="sex">
+							    			<td style="width:100px;text-align: center;"><input type="radio" name="sex" value="男" id="pri1" checked/><label for="pri1" style="font-size: 20px;">男</label></td>
+							    			<td style="width:100px;text-align: center;"><input type="radio" name="sex" value="女" id="pri2"/><label for="pri2" style="font-size: 20px;">女</label></td>
 							    		</tr>
 							    	</table>
 							    </div>
@@ -223,39 +230,30 @@
 								<div class="text2"><p style="font-size: 18px;">出生日期：</p></div>
 							    <div class="birthday">
 							    	<select name="year" id="year">
-										<option value="">选择年份</option>
+										<option>选择年份</option>
 									</select>
 									<select name="month" id="month">
-										<option value="">选择月份</option>
+										<option>选择月份</option>
 									</select>
 									<select id="days" class="day">
-										<option value="">选择日期</option>
+										<option>选择日期</option>
 									</select>
 							    </div>
 							    <script type="text/javascript">
 									$(function(){
 										$("#date").selectDate()
 										
-										$("#days").focusout(function(){
-											var year = $("#year option:selected").html()
-											var month = $("#month option:selected").html()
-											var day = $("#days option:selected").html()
-											console.log(year+month+day)
-										})
+										
 									})
 								</script>
 							</div>
-							<div class="box1">
-								<div class="text2"><p style="font-size: 20px;">学校：</p></div>
-								<div class="shurukuang">
-									<input type="text" class="form-control"/>
-								</div>
-							</div>
+							
 							<div class="box1">
 								<div class="text2"><p style="font-size: 20px;">手机号：</p></div>
 								<div class="shurukuang">
-								    <input type="text" class="form-control" maxlength="11"/>
+								    <input type="text" class="form-control" maxlength="11" id="phone"/>
 								</div>
+								<button onclick="saveInfo()" class="button" style="float:right;width:70px;" type="button">保存</button>
 							</div>
 						</div>
 					</div>
@@ -269,22 +267,25 @@
 								<div class="box1">
 								    <div class="text2"><p style="font-size: 20px;">旧密码：</p></div>
 								    <div class="shurukuang">
-								    	<input type="password" class="form-control"/>
+								    	<input type="password" class="form-control" id="oldPassword"/>
 								    </div>
 							    </div>
 							    <div class="box1">
 								    <div class="text2"><p style="font-size: 20px;">新密码：</p></div>
 								    <div class="shurukuang">
-								    	<input type="password" class="form-control"/>
+								    	<input type="password" class="form-control" id="newPassword"/>
 								    </div>
 								    <div class="newPassword"><p class="mima2">密码由6-18位数字、字母组成。</p></div>
 							    </div>
 							    <div class="box1">
 								    <div class="text2"><p style="font-size: 20px;">确认密码：</p></div>
 								    <div class="shurukuang">
-								    	<input type="password" class="form-control"/>
+								    	<input type="password" class="form-control" id="surePassword"/>
+
 								    </div>
+								    <button onclick="updatePassword()" class="button" style="float:right;width:70px;" type="button">修改</button>
 							    </div>
+							    
 							</div>
 							
 						</div>

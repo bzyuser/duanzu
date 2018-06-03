@@ -6,7 +6,8 @@
 		SELECT *
 		FROM house_base_info b,house_detail_info d,house_picture_url p
 		WHERE b.host_family_id=
-			(SELECT host_family_id FROM host_family_info WHERE user_id=#{id});
+			(SELECT host_family_id FROM host_family_info WHERE user_id=#{id})
+			and b.house_id=d.house_id and d.house_id=p.house_id
 	</select>
 	<resultMap id="house" type="duanzu.entity.HouseBaseInfo" >
 		<id property="houseId" column="house_id"></id>

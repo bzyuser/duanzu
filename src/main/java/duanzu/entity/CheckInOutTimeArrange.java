@@ -5,6 +5,8 @@ import java.util.Date;
 public class CheckInOutTimeArrange {
     private String timeId;
 
+    private String orderId;
+
     private String houseId;
 
     private Date presetStartTime;
@@ -19,6 +21,14 @@ public class CheckInOutTimeArrange {
 
     public void setTimeId(String timeId) {
         this.timeId = timeId == null ? null : timeId.trim();
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId == null ? null : orderId.trim();
     }
 
     public String getHouseId() {

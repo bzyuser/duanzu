@@ -3,6 +3,7 @@
 <mapper namespace="duanzu.dao.CheckInOutTimeArrangeMapper" >
   <resultMap id="BaseResultMap" type="duanzu.entity.CheckInOutTimeArrange" >
     <id column="time_id" property="timeId" jdbcType="VARCHAR" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
     <result column="house_id" property="houseId" jdbcType="VARCHAR" />
     <result column="preset_start_time" property="presetStartTime" jdbcType="TIMESTAMP" />
     <result column="preset_end_time" property="presetEndTime" jdbcType="TIMESTAMP" />
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    time_id, house_id, preset_start_time, preset_end_time, remark
+    time_id, order_id, house_id, preset_start_time, preset_end_time, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="duanzu.entity.CheckInOutTimeArrangeExample" >
     select
@@ -100,16 +101,21 @@
     </if>
   </delete>
   <insert id="insert" parameterType="duanzu.entity.CheckInOutTimeArrange" >
-    insert into check_in_out_time_arrange (time_id, house_id, preset_start_time, 
-      preset_end_time, remark)
-    values (#{timeId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, #{presetStartTime,jdbcType=TIMESTAMP}, 
-      #{presetEndTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+    insert into check_in_out_time_arrange (time_id, order_id, house_id, 
+      preset_start_time, preset_end_time, remark
+      )
+    values (#{timeId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{houseId,jdbcType=VARCHAR}, 
+      #{presetStartTime,jdbcType=TIMESTAMP}, #{presetEndTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="duanzu.entity.CheckInOutTimeArrange" >
     insert into check_in_out_time_arrange
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="timeId != null" >
         time_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
       </if>
       <if test="houseId != null" >
         house_id,
@@ -127,6 +133,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="timeId != null" >
         #{timeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="houseId != null" >
         #{houseId,jdbcType=VARCHAR},
@@ -154,6 +163,9 @@
       <if test="record.timeId != null" >
         time_id = #{record.timeId,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
       <if test="record.houseId != null" >
         house_id = #{record.houseId,jdbcType=VARCHAR},
       </if>
@@ -174,6 +186,7 @@
   <update id="updateByExample" parameterType="map" >
     update check_in_out_time_arrange
     set time_id = #{record.timeId,jdbcType=VARCHAR},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
       house_id = #{record.houseId,jdbcType=VARCHAR},
       preset_start_time = #{record.presetStartTime,jdbcType=TIMESTAMP},
       preset_end_time = #{record.presetEndTime,jdbcType=TIMESTAMP},
@@ -185,6 +198,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="duanzu.entity.CheckInOutTimeArrange" >
     update check_in_out_time_arrange
     <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
       <if test="houseId != null" >
         house_id = #{houseId,jdbcType=VARCHAR},
       </if>
@@ -202,7 +218,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="duanzu.entity.CheckInOutTimeArrange" >
     update check_in_out_time_arrange
-    set house_id = #{houseId,jdbcType=VARCHAR},
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      house_id = #{houseId,jdbcType=VARCHAR},
       preset_start_time = #{presetStartTime,jdbcType=TIMESTAMP},
       preset_end_time = #{presetEndTime,jdbcType=TIMESTAMP},
       remark = #{remark,jdbcType=VARCHAR}
