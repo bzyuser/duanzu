@@ -26,4 +26,25 @@ public class ZuKeManagerServieImpl implements ZuKeManagerService {
 		return list;
 	}
 
+	@Override
+	public boolean deleteOrderInfo(String order_id) {
+		
+		boolean result = false;
+		
+		//删除订单信息
+		result = zkMapper.deleteOrderManagerInfo(order_id);
+		
+		//删除订单详细信息
+		result = zkMapper.deleteOrderDetailInfo(order_id);
+		
+		//删除同住人信息
+		String order_detail_id = zkMapper.findOrderDetailIdByOrederId(order_id);
+		result = zkMapper.deleteOrderTenantInfo(order_detail_id);
+		
+		//删除订单预定时间
+		result = zkMapper.deleteOrderTimeInfo(order_id);
+		
+		return true;
+	}
+
 }

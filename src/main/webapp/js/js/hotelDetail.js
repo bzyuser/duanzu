@@ -1,7 +1,10 @@
 
 // 查询房屋信息
 function findHouseDetail(house_id){
-	
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	$.ajax({
 		url:contextPath+"/pages/hotel/findHouse/findHouseDetailInfo.do",
 		type:"post",
@@ -69,7 +72,7 @@ function findHouseDetail(house_id){
 			$("#cashPledge").text("押金：￥"+pqInfo.cashPledge);
 		},
 		error:function(){
-			alert("加载房屋信息失败");
+			layer.msg("加载房屋信息失败");
 		}
 	})
 }
@@ -111,6 +114,10 @@ function select(obj){
 
 // 前往订单提交页面
 function toSubmit(){
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	// 获取参数
 	var house_id = $("#house_id").text();
 	var day_price = $("#day_price").text();
@@ -119,15 +126,15 @@ function toSubmit(){
 	var personNum = $("#personNum").text();
 	//非空性判断
 	if(startTime==null || startTime == ""){
-		alert("请选择预定开始时间");
+		layer.msg("请选择预定开始时间");
 		return;
 	}
 	if(endTime==null || endTime == ""){
-		alert("请选择预定退房时间");
+		layer.msg("请选择预定退房时间");
 		return;
 	}
 	if(personNum=="人数"){
-		alert("请选择预定人数");
+		layer.msg("请选择预定人数");
 		return;
 	}
 	// 页面跳转并传参

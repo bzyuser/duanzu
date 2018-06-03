@@ -7,6 +7,10 @@ $(function(){
 
 // 根据状态查询订单信息
 function searchOrderInfo(){
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	
 	//获取用户id
 	var user_id = $("#user_id").val();
@@ -28,15 +32,49 @@ function searchOrderInfo(){
 						"<td><p>"+orderList[i].check_in_days+"天*1套</p><p style='color: lightgray;'>"+orderList[i].check_in_time+"入住<br>"+orderList[i].check_out_time+"退房</p></td>"+
 						"<td><p>订单总金额￥"+orderList[i].total_price+"</p></td>"+
 						"<td><p>"+orderList[i].real_name+""+orderList[i].sex+"士</p></td>"+
-						"<td><div class='state'><p>"+orderList[i].status+"</p></div></td>"+
-						"<td><div class='delete'><a href='#'>删除</a></div></td>"+
+						"<td><p>"+orderList[i].status+"</p></td>"+
+						"<td><input type='button' onclick='calcelOrder(this);' value='取消订单' status='"+orderList[i].status+"' orderId='"+orderList[i].order_id+"'/></td>"+
 					"</tr>"
 				);
 			}
 		},
 		error:function(){
-			alert("信息加载出错");
+			layer.msg("信息加载出错");
 		}
+			
+		
 	})
 	
 }
+
+//取消订单
+function calcelOrder(obj){
+	
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
+	
+	var status = $(obj).attr("status");
+	if(status!="待入住"){
+		layer.msg(status+" 状态不可取消");
+		return;
+	}
+	var order_id = $(obj).attr("orderId");
+
+	$.ajax({
+		url:contextPath+"/pages/hotel/zukeOrderManager/calcelOrder.do",
+		type:"post",
+		data:{"order_id":order_id},
+		dataType:"json",
+		success:function(){
+			layer.msg("取消订单成功")
+		},
+		error:function(){
+			layer.msg("取消订单出错")
+		}
+	})
+}
+
+
+

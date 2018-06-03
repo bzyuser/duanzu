@@ -22,6 +22,10 @@
 		<!--<script class="resources library" src="../../js/hotel.js/area.js" type="text/javascript"></script>-->
 		
 		<script type="text/javascript" src="../../js/js/zukeManager.js"></script>
+		<script type="text/javascript" src="../../lib/layui/layui.js"
+			charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/xadmin.js"></script>
+		
 		
 		
 		<style>
@@ -212,7 +216,7 @@
 	</head>
 	<body>
 	<!-- 从session获取租客id -->
-	<input type="hidden" id="user_id" value="1">
+	<input type="hidden" id="user_id" value="${userId }">
 	
 		<div class="header">
 			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>

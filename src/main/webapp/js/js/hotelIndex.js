@@ -20,6 +20,12 @@ function getParame(){
 // 按条件查询
 function searchDuanzuInfo(){
 	
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
+	
+	
 	getParame();
 	
 	$.ajax({
@@ -71,7 +77,7 @@ function searchDuanzuInfo(){
 			startPageShowInfo(total,pageNum,pageSize);
 		},
 		error:function(){
-			alert("查询短租信息失败");
+			layer.msg("查询短租信息失败");
 		}
 	})
 }

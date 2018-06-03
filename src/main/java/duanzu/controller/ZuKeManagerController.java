@@ -30,7 +30,19 @@ public class ZuKeManagerController {
 		return orderList;
 	}
 	
-	
+	/**
+	 * 取消订单（删除为入住的订单）
+	 * @param order_id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/calcelOrder.do")
+	public boolean calcelOrder(String order_id){
+		boolean result = false;
+		// 分别从四个表中删除数据
+		result = zukeService.deleteOrderInfo(order_id);
+		return result;
+	}
 	
 	
 	
