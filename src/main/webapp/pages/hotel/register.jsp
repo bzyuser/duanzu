@@ -70,7 +70,7 @@
 					<table>
 					<tr>
 						<td>
-							<input type="text" class="form-control" placeholder="姓名" id="name" />
+							<input type="text" class="form-control" placeholder="用户名" id="name" />
 						</td>
 						<td>
 							<p id="name_span"></p>

@@ -42,7 +42,7 @@
 	type="text/javascript"></script>
 
 <script type="text/javascript" src="../../js/js/add_fangyuan.js"></script>
-
+<script type="text/javascript" src="../../js/js/util.js"></script>
 
 <style>
 .icon {
@@ -459,6 +459,8 @@ a:hover {
 <body>
 	<div class="header">
 		<div class="logo">
+			<!-- //隐藏session中的值 -->
+			<input type="text" value="${userId}" id="sessionUserId" style="display:none;"></input>
 			<img src="../../images/hotel/logo.png" alt="logo" width="50px"
 				height="50px" />
 		</div>
@@ -471,7 +473,7 @@ a:hover {
 						<use xlink:href="#icon-fangwuxinxi_ruzhuren"></use>
 					</svg>
 			</div>
-			<span class="username">Hi,陈洁</span> <a onclick="exit()" id="exit">退出登录</a>
+			<span class="username">${user.name}</span> <a onclick="exit()" id="exit" style="cursor:pointer;">退出登录</a>
 		</div>
 
 	</div>
@@ -1150,7 +1152,7 @@ a:hover {
 				</div>
 
 				<div class="submit">
-					<button type="button" onclick="submit1()"
+					<button type="button" onclick="submit1()" id="submit"
 						style="font-size: 22px; height: 35px; width: 295px; background: lightgreen;">确认发布</button>
 				</div>
 			</form>
