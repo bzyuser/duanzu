@@ -331,36 +331,33 @@ select {
 						<div class="detail">
 							<div class="order-list">
 								<table class="list-group">
+								<thead>
 									<tr class="list-title">
 										<td>订单号</td>
 										<td>房间</td>
 										<td>
-											<div class="order0">
-												<select class="type00">
-													<option value="1">入住时间</option>
-													<option value="2">本周</option>
-													<option value="3">本月</option>
-													<option value="4">最近三个月</option>
-													<option value="5">更早</option>
-												</select>
-											</div>
+											日期
 										</td>
 										<td>房费</td>
 										<td>租客</td>
 										<td>
 											<div class="order0">
-												<select class="type00" value="订单状态">
-													<option value="1">所有订单</option>
-													<option value="2">待付款</option>
-													<option value="3">待入住</option>
-													<option value="4">入住中</option>
-													<option value="5">取消</option>
+												<select class="type00"  id="orderStatus" onchange="loadhostorderInfo()">
+													<option value="">所有订单</option>
+													<option value="待付款">待付款</option>
+													<option value="待入住">待入住</option>
+													<option value="入住中">入住中</option>
+													<option value="取消">取消</option>
 												</select>
 											</div>
 										</td>
 										<td>操作</td>
 									</tr>
-									<tr class="list-content">
+									</thead>
+									<tbody id="zuKeOrderInfo">
+									
+									</tbody>
+									<!-- <tr class="list-content">
 										<td>63635624</td>
 										<td><p style="text-align: left; color: lightblue;">高级公寓
 												好友小聚休闲度假全家出游</p>
@@ -407,7 +404,7 @@ select {
 										<td><div class="delete">
 												<a href="#">删除</a>
 											</div></td>
-									</tr>
+									</tr> -->
 								</table>
 							</div>
 						</div>

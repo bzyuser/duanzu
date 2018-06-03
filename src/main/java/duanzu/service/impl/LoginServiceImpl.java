@@ -35,6 +35,7 @@ public class LoginServiceImpl implements LoginService {
 			if(truePassword.equals(password)){
 				map.put("status", 1);
 				map.put("msg", "密码正确");
+				map.put("user", lists.get(0));
 			} else{
 				map.put("status", 0);
 				map.put("msg", "密码错误");

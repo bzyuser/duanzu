@@ -5,6 +5,7 @@ var preset_end_time = "";
 var city_name = "";
 // 页面启动时加载
 $(function(){
+	
 	$.ajax({
 		url:contextPath+"/pages/hotel/findDuanZu/findIndexPageInfo.do",
 		type:"post",
