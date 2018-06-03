@@ -5,7 +5,10 @@ var preset_end_time = "";
 var city_name = "";
 // 页面启动时加载
 $(function(){
-	
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	$.ajax({
 		url:contextPath+"/pages/hotel/findDuanZu/findIndexPageInfo.do",
 		type:"post",
@@ -91,7 +94,7 @@ $(function(){
 			
 		},
 		error:function(){
-			alert("页面加载数据失败")
+			layer.msg("页面加载数据失败")
 		}
 	})
 })
@@ -108,6 +111,10 @@ function cityImgClick(obj){
 
 // 推荐短租点击事件
 function learnMoreClick(obj){
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	// 获取隐藏的房屋id
 	var house_id = $(obj).parent("span").find("a").text();
 	//发送ajax请求 改变房屋热度等级
@@ -121,7 +128,7 @@ function learnMoreClick(obj){
 			window.location.href="/duanzu/pages/hotel/hotelDetail.jsp?house_id="+house_id;
 		},
 		error:function(){
-			alert("增加房屋热度失败");
+			layer.msg("增加房屋热度失败");
 		}
 	})
 	

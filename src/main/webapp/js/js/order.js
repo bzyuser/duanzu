@@ -6,6 +6,10 @@ $(function(){
 
 
 function submitOrder(){
+	var layer;
+	layui.use('layer',function(){
+		layer = layui.layer;
+	});
 	
 	// 把两个表单连接起来，用于统一提交
 	var data = $("#orderInfo").serialize()+"&"+$("#otherInfo").serialize();
@@ -17,11 +21,11 @@ function submitOrder(){
 		dataType:"json",
 		success:function(){
 			// 提交成功，设置页面跳转
-			alert("预定成功")
+			layer.msg("预定成功")
 			//window.location.href="/duanzu/pages/hotel/zukeManager.jsp"
 		},
 		error:function(){
-			alert("提交订单出错")
+			layer.msg("提交订单出错")
 		}
 	})
 }
@@ -93,7 +97,7 @@ function  DateDiff(sDate1,sDate2){    //sDate1和sDate2是06/01/2017格式
    oDate1 = new  Date(aDate[0]+'/'+aDate[1]+'/'+aDate[2]);
    aDate = sDate2.split("/"); 
    oDate2 = new  Date(aDate[0]+'/'+aDate[1]+'/'+aDate[2]); 
-   //把相差的毫秒数转换为天数      
+   //把相差的毫秒数转换为天数
    iDays = parseInt(Math.abs(oDate1-oDate2)/1000/60/60/24);
    return iDays; 
 }    

@@ -12,5 +12,10 @@ public interface ZuKeManagerService {
 	 */
 	public List<Map<String,Object>> findZuKeOrderInfo(Map<String,Object> condition);
 
-	
+	/**
+	 * 删除订单信息
+	 * @param order_id
+	 * @return
+	 */
+	public boolean deleteOrderInfo(String order_id);
 }
