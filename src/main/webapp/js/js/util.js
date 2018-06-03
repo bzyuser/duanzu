@@ -19,7 +19,7 @@ function exit(){
 	});
 }
 
-
+// 判斷session是否有數據
 function hasSession(){
 	var session = $("#session").val();
 	if(session!=null && session!=""){
@@ -30,3 +30,11 @@ function hasSession(){
 		$("#nav1").css("display","");
 	}
 }
+
+//
+function toIndex(){
+	window.location.href=contextPath+"/pages/hotel/index.jsp";
+}
+
+
+

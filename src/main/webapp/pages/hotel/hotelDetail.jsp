@@ -474,7 +474,7 @@
 
 	<body>
 		<div class="header">
-			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
+			<div class="logo"><img onclick="toIndex();" style="cursor:pointer;" src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
 			<div class="name">
 				<p>
 					Keda短租

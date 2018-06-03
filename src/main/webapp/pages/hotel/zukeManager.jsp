@@ -25,7 +25,7 @@
 		<script type="text/javascript" src="../../lib/layui/layui.js"
 			charset="utf-8"></script>
 		<script type="text/javascript" src="../../js/xadmin.js"></script>
-		
+		<script type="text/javascript" src="../../js/js/util.js"></script>
 		
 		
 		<style>
@@ -227,7 +227,7 @@
 	<input type="hidden" id="user_id" value="${userId }">
 	
 		<div class="header">
-			<div class="logo"><img src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
+			<div class="logo"><img onclick="toIndex();" style="cursor:pointer;" src="../../images/hotel/logo.png" alt="logo" width="50px" height="50px" /></div>
 			<div class="name">
 				<p>
 					Keda短租
@@ -267,7 +267,7 @@
 			<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
 			  	<ul class="layui-tab-title">
 				    <li class="layui-this">订单管理</li>
-				    <li>其他联系人</li>
+				    
 			  	</ul>
 			  	<div class="layui-tab-content" style="height: 100px;">
 			    <div class="layui-tab-item layui-show">
@@ -282,17 +282,7 @@
 									<tr class="list-title">
 										<td>订单号</td>
 										<td>房间</td>
-										<td>
-											<div class="order0">
-										    	<select class="type00">
-										    		<option value="1">入住时间 </option>
-										    		<option value="2">本周</option>
-										    		<option value="3">本月</option>
-										    		<option value="4">最近三个月</option>
-										    		<option value="5">更早</option>
-										    	</select>
-										    </div>
-										</td>
+										<td>日期</td>
 										<td>房间金额</td>
 										<td>房东</td>
 										<td>
@@ -353,27 +343,7 @@
 						</div>
 					</div>
 					</div>
-				    <div class="layui-tab-item">
-				    	<div class="mimaInfo">
-							<div class="kuai"></div>
-							<div class="text1" style="font-size: 25px;">其他联系人</div>
-							<div class="line"></div>
-							<div class="mima">
-								<div class="box1">
-								    <div class="text2"><p style="font-size: 20px;">姓名：</p></div>
-								    <div class="shurukuang">
-								    	<input type="text" class="form-control"/>
-								    </div>
-							    </div>
-							    <div class="box1">
-								    <div class="text2"><p style="font-size: 20px;">联系电话：</p></div>
-								    <div class="shurukuang">
-								    	<input type="text" class="form-control" maxlength="11"/>
-								    </div>
-							    </div>
-							</div>
-						</div>
-				    </div>
+				  
 			  	</div>
 			</div> 
 		</div>
